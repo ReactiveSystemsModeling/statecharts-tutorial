@@ -1,0 +1,8 @@
+package trafficlight.test
+
+testsuite TestTrafficLight {
+	
+	trafficlight.test.InterruptSpecification
+	
+}
+

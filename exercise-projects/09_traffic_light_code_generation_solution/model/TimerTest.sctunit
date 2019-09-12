@@ -1,0 +1,108 @@
+package trafficlight.test
+
+testclass TimerTest for statechart TrafficLightCtrl {
+	
+	@Test operation timerDisplaysRemainingTimeWhileTheLightIsRed () {
+				
+		// given that the traffic light is switched on to red lights 
+		enter
+		raise toggle
+		assert active(main.main.trafficlight.normal.normal.Red)		
+		assert TrafficLight.displayRed
+		
+		// the statemachine must update the timer value to the red period in seconds  
+		assert Timer.updateTimerValue
+		assert valueof(Timer.updateTimerValue) == redPeriod
+		// assert active(main.main.timer.running) // a grey box check may test for concrete active states
+		assertTimerValueCountsDownToOneEverySecond
+	}
+	
+
+	@Test operation timerDisplaysRemainingTimeWhileTheLightIsGreed () {
+				
+		// given that the traffic light is switched on to red lights 
+		enter
+		raise toggle
+		proceed 60s
+		assert active(main.main.trafficlight.normal.normal.Green)
+		assert TrafficLight.displayGreen
+		
+		// the statemachine must update the timer value to the red period in seconds  
+		assert Timer.updateTimerValue
+		assert valueof(Timer.updateTimerValue) == greenPeriod	
+		// assert active(main.main.timer.running) // a grey box check may test for concrete active states
+		assertTimerValueCountsDownToOneEverySecond
+	}
+	
+	
+	@Test operation timerDisabledWhileTheLightIsYellow () {
+				
+		// given that the traffic light is switched on to red lights 
+		enter
+		raise toggle
+		proceed 60s
+		proceed 55s
+		assert active(main.main.trafficlight.normal.normal.Yellow)		
+		assert TrafficLight.displayYellow
+		
+		// the statemachine must update the timer value to Timer.OFF
+		assert Timer.updateTimerValue
+		assert valueof(Timer.updateTimerValue) == Timer.OFF	
+		// assert active(main.main.timer.disabled) // a grey box check may test for concrete active states
+	}
+	
+	@Test operation timerDisabledWhileLightIsInterrupted () {
+				
+		// given that the traffic light is switched on to red lights 
+		enter
+		raise toggle
+		proceed 10s
+		raise police_interrupt
+		assert active(main.main.trafficlight.interrupted)		
+		assert TrafficLight.displayYellow 
+		
+		// the statemachine must update the timer value to Timer.OFF  
+		assert Timer.updateTimerValue
+		assert valueof(Timer.updateTimerValue) == Timer.OFF	
+		// assert active(main.main.timer.disabled) // a grey box check may test for concrete active states
+	}
+	
+	@Test operation timerIsRedWhileTheLightIsRed () {
+				
+		// given that the traffic light is switched on to red lights 
+		enter
+		raise toggle
+		assert active(main.main.trafficlight.normal.normal.Red)		
+		assert TrafficLight.displayRed
+		
+		// the statemachine must update the timer colour to Red  
+		assert Timer.updateTimerColour
+		assert valueof(Timer.updateTimerColour) == "Red"	
+	}
+	
+
+	@Test operation timerIsGreedWhileTheLightIsGreen () {
+				
+		// given that the traffic light is switched on to red lights 
+		enter
+		raise toggle
+		proceed 60s
+		assert active(main.main.trafficlight.normal.normal.Green)		
+		assert TrafficLight.displayGreen
+		
+		// the statemachine must update the timer colour to Green  
+		assert Timer.updateTimerColour
+		assert valueof(Timer.updateTimerColour) == "Green"	
+	}
+	
+	operation assertTimerValueCountsDownToOneEverySecond() {
+		
+		var lastValue : integer = valueof(Timer.updateTimerValue)
+		while(valueof(Timer.updateTimerValue) > 1){
+			proceed 1 s
+			assert valueof(Timer.updateTimerValue) == lastValue - 1
+			lastValue = valueof(Timer.updateTimerValue)
+		}		
+	} 
+}
+

@@ -1,0 +1,173 @@
+package trafficlight.test
+
+testclass InterruptSpecification for statechart TrafficLightCtrl {
+	
+	@Test operation lightIsInterruptedInRed () {
+				
+		// given the traffic light is inactive
+		lightIsRed
+		
+		// when
+		raise police_interrupt
+		
+		// then 
+		assert TrafficLight.displayYellow
+		//and
+		lightIsBlinking
+	}
+	
+
+	@Test operation lightIsInterruptedInGreen () {
+				
+		// given the traffic light is inactive
+		lightIsGreen
+		
+		// when
+		raise police_interrupt
+		
+		// then 
+		assert TrafficLight.displayYellow
+		//and
+		lightIsBlinking
+	}
+	
+
+	@Test operation lightIsInterruptedInYellow () {
+				
+		// given the traffic light is inactive
+		lightIsYellow
+		
+		// when
+		raise police_interrupt
+		
+		// then 
+		assert TrafficLight.displayYellow
+		//and
+		lightIsBlinking
+	}
+	
+	
+	@Test operation FinishInterruptAfterInterruptedInRed () {
+				
+		// given the traffic light is inactive
+		lightIsInterruptedInRed
+		
+		// when
+		raise police_interrupt
+		
+		// then 
+		assert TrafficLight.displayRed
+		//and
+		lightIsNotBlinking
+	}
+
+
+
+	@Test operation FinishInterruptAfterInterruptedInGreen () {
+				
+		// given the traffic light is inactive
+		lightIsInterruptedInGreen
+		
+		// when
+		raise police_interrupt
+		
+		// then 
+		assert TrafficLight.displayGreen
+		//and
+		lightIsNotBlinking
+	}
+
+
+	@Test operation FinishInterruptAfterInterruptedInYellow () {
+				
+		// given the traffic light is inactive
+		lightIsInterruptedInYellow
+		
+		// when
+		raise police_interrupt
+		
+		// then 
+		assert TrafficLight.displayYellow
+		//and
+		lightIsNotBlinking
+	}
+
+
+	operation lightIsRed() {
+		
+		//given
+		assert ! is_active
+		
+		// when 
+		enter
+		
+		// then
+		assert TrafficLight.displayRed
+	}
+
+	operation lightIsGreen() {
+		
+		//given
+		lightIsRed
+		
+		// when 
+		proceed 60s 
+		
+		// then
+		assert TrafficLight.displayGreen
+	}
+	
+	operation lightIsYellow() {
+		
+		//given
+		lightIsGreen
+		
+		// when 
+		proceed 55s 
+		
+		// then
+		assert TrafficLight.displayYellow
+	}
+	
+	
+	operation lightIsBlinking () {
+				
+		// given
+		assert TrafficLight.displayYellow
+		
+		var i : integer = 100
+		while (i>0) {
+			
+			// when
+			proceed 500 ms			
+			// then 
+			assert TrafficLight.displayNone
+
+			// when
+			proceed 500 ms			
+			// then 
+			assert TrafficLight.displayYellow
+
+			i = i-1
+			
+		}
+	}
+	
+	operation lightIsNotBlinking () {
+				
+		var i : integer = 10000
+		while (i > 0) {
+			
+			// when
+			proceed 1 ms
+			// then 
+			assert !TrafficLight.displayNone
+			
+			i = i-1
+		}
+	}
+	
+	
+	
+}
+

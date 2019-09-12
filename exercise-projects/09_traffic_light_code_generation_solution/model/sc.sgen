@@ -1,0 +1,21 @@
+GeneratorModel for yakindu::java {
+
+	statechart TrafficLightCtrl {
+
+		feature Outlet {
+			targetProject = "09_traffic_light_code_generation_solution"
+			targetFolder = "src-gen"
+		}
+		feature Naming {
+			basePackage =  "traffic.light" 
+		}
+		feature GeneralFeatures {
+			RuntimeService = true
+			TimerService = true
+			InterfaceObserverSupport = true
+			synchronized = true
+		}
+		
+		
+	}
+}
