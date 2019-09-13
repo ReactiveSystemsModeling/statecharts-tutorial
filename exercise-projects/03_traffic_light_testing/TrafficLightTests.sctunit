@@ -1,0 +1,47 @@
+package trafficlight.test
+
+testclass TrafficLightTests for statechart TrafficLightCtrl {
+	
+	@Test operation switchTrafficLightOn () {
+				
+		// given the traffic light is inactive
+		assert !is_active
+		// when
+		enter
+		// then traffic light is off which means no color was switched on
+		assert displayRed
+		assert !displayGreen
+		assert !displayYellow
+	}
+	
+
+	@Test operation switchLightFromRedToGreen () {
+				
+		// given
+		switchTrafficLightOn
+		// when
+		proceed 20s
+		// then 
+		assert displayRed
+		assert displayGreen
+		assert displayYellow
+	}
+	
+
+
+	@Test operation lightCycles () {
+				
+		// given 
+		
+		var i : integer = 10
+		while (i > 0) {
+			i=i-1
+
+			
+		}
+	}
+	
+	
+	
+}
+
