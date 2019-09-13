@@ -2,91 +2,85 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Exercise 4: integrate generated traffic light statemachine with UI</title>
+<title>Solution 4: integrate generated traffic light statemachine with UI</title>
 <link href="./resources/doc/css/style.css" rel="stylesheet">
 </head>
 <body>
 
-  <div class="jumbotron text-center">
-      <h3>Exercise 4</h3>
-      <h2>Integrate generated traffic light statemchart with UI</h2>
-  
-      <p>Statecharts define reactive behavior that interacts with their environment. 
-        In this exercise code is generated from the traffic light statechart. 
-        This code is then integrated with a graphical UI of the traffic light. 
-      </p>
-      <p>
+    <div class="jumbotron text-center">
+        <h3>Solution 4</h3>
+        <h2>Integrate generated traffic light statechart into Java UI</h2>
+    
+        <p>In this execise code is generated from the traffic light statechart. The generated state machine is 
+          integrated with the manually written Java application that displays a traffic light. 
         </p>
-  </div>  
+        <p>
+          </p>
+    </div>  
+    
+    <div class="container body-container">
+        <div class="row">
+          <div class="col-sm-8">
+              <p></p>
   
-  <div class="container body-container">
-      <div class="row">
-        <div class="col-sm-8">
-            <p></p>
-
-            <h1>What is in the project</h1>
-            <p>
-              You will find additional files in this exercise project. 
-            </p>
-            <div class="table-responsive">
-                <table class="table-hover table-bordered">
-                  <tr>
-                    <th>entry</th>
-                    <th>purpose</th>
-                  </tr>
-                  <tr>
-                    <td>JRE System Library</td>
-                    <td>Ignore it. Java is used and this is an Eclipse Java project wich requires the library.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>src</td>
-                    <td>This folder contains the hand written Java code along with the code generated from the statechart.
-                      You can take a look at it.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>04-Run-UI.launch</td>
-                    <td>This is a launch configuration that you can use to start the UI application. 
-                      Simply right-click and choosee "Run As > 04-Run-UI".</td>
-                  </tr>
-                  <tr>
-                    <td>sc.sgen</td>
-                    <td>This is the configuration for the code generator. This is required to generate code.</td>
-                  </tr>
-                </table>
-            </div>
-        
-            <h1>Run the UI</h1>
+              <h1>What is in the project</h1>
               <p>
-                Select the file <i>04-Run-UI.launch</i> in the project explorer. 
-                Right-click the entry and select "Run As > 04-Run-UI". This will
-                launch the UI (see screenshot). 
-                You can observe how the traffic light cycles through the different phases.
-                This UI includes elements like buttons 
-                which do not work yet but will be integrated in the next exercises.
+                You will find additional files in this exercise project. 
               </p>
-              
-            <h1>Inspect <i>sc.sgen</i> and the source code</h1>
-            <p>
-              You can find more information in the tutorial slides.
-            </p>  
-            
-        </div>
-        <div class="col-sm-4">
-            <img class="standard-image" alt="Testing a traffic light" 
-            src="resources/doc/trafficlight.png" />
+              <div class="table-responsive">
+                  <table class="table-hover table-bordered">
+                    <tr>
+                      <th>entry</th>
+                      <th>purpose</th>
+                    </tr>
+                    <tr>
+                      <td>JRE System Library</td>
+                      <td>Ignore it. Java is used and this is an Eclipse Java project wich requires the library.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>src</td>
+                      <td>This folder contains the hand written Java code along with the code generated from the statechart.
+                        You can take a look at it.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>04-Solution-Run-UI.launch</td>
+                      <td>This is a launch configuration that you can use to start the UI application. 
+                        Simply right-click and choosee "Run As > 04-Run-UI".</td>
+                    </tr>
+                    <tr>
+                      <td>sc.sgen</td>
+                      <td>This is the configuration for the code generator. This is required to generate code.</td>
+                    </tr>
+                  </table>
+              </div>
+              <p>
+                The most interesting parts are the generated state machine classes in the Java package <i>traffic.light.trafficlightctrl</i> 
+                and the application class <i>TrafficLightDemo</i> which gives an example how to setr up and integrate the generated state machine code.
+              </p>
   
+          </div>
+          <div class="col-sm-4">
+              <img class="standard-image" alt="Testing a traffic light" 
+              src="resources/doc/trafficlight.png" />
+    
+          </div>
+        </div>  
+          <h1>Run the UI</h1>
+            <p>
+              If you have implemented the state machines event listerners you can run the application.
+              Select the file <i>04-Run-UI.launch</i> in the project explorer. 
+              Right-click the entry and select "Run As > 04-Solution-Run-UI". This will
+              launch the UI (see screenshot). 
+              You can observe how the traffic light cycles through the different phases.
+              This UI includes elements like buttons 
+              which do not work yet but will be integrated in the next exercises.
+            </p>
+       
+          </div>
         </div>
       </div>
-    </div>
-   
   
-  <div class="body-container">
-
-      <p></p>
-
-  </div>
-
 </body>
 </html>

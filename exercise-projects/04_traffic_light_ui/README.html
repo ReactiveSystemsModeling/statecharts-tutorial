@@ -9,9 +9,9 @@
 
   <div class="jumbotron text-center">
       <h3>Exercise 4</h3>
-      <h2>Integrate generated traffic light statemchart with UI</h2>
+      <h2>Integrate generated traffic light statechart to Java UI</h2>
   
-      <p>Statecharts define reactive behavior that interacts with their environment. 
+      <p>Statecharts define reactive behavior that interacts with the environment. 
         In this exercise code is generated from the traffic light statechart. 
         This code is then integrated with a graphical UI of the traffic light. 
       </p>
@@ -56,27 +56,47 @@
                   </tr>
                 </table>
             </div>
-        
-            <h1>Run the UI</h1>
-              <p>
-                Select the file <i>04-Run-UI.launch</i> in the project explorer. 
-                Right-click the entry and select "Run As > 04-Run-UI". This will
-                launch the UI (see screenshot). 
-                You can observe how the traffic light cycles through the different phases.
-                This UI includes elements like buttons 
-                which do not work yet but will be integrated in the next exercises.
-              </p>
-              
-            <h1>Inspect <i>sc.sgen</i> and the source code</h1>
+
+            <h1>Inspect the code generator model</h1>
             <p>
-              You can find more information in the tutorial slides.
+              Open the <i>sc.sgen</i> file. The content is explained by comments in the file.
             </p>  
-            
+
+            <h1>Inspect the generated code</h1>
+            <p>
+              The source code is located in the folder <i>src</i>. You can find the generated state machine code 
+              in the Java package <i>traffic.light.trafficlightctrl</i>. Take a look at the interface definition 
+              <i>ITrafficLightCtrlStatemachine.java</i> to get familiar with the state machines API. 
+              <i>TrafficLightCtrlStatemachine.java</i> contains the implementation.
+            </p>              
         </div>
         <div class="col-sm-4">
             <img class="standard-image" alt="Testing a traffic light" 
             src="resources/doc/trafficlight.png" />
   
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <h1>Integrate the state machine</h1>
+          <p>
+            The statemachine is not yet attached to the UI. 
+            Open the Java class <i>TrafficLightDemo.java</i> in <i>src/traffic.light</i> and follow the instructions that you'll 
+            find in the source code comments.
+          </p>
+          
+
+        <h1>Run the UI</h1>
+          <p>
+            If you have implemented the state machines event listerners you can run the application.
+            Select the file <i>04-Run-UI.launch</i> in the project explorer. 
+            Right-click the entry and select "Run As > 04-Run-UI". This will
+            launch the UI (see screenshot). 
+            You can observe how the traffic light cycles through the different phases.
+            This UI includes elements like buttons 
+            which do not work yet but will be integrated in the next exercises.
+          </p>
+     
         </div>
       </div>
     </div>
