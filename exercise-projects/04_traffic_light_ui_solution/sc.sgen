@@ -14,7 +14,7 @@ GeneratorModel for yakindu::java {
 		 * between or within features and press ctrl-space to get proposals and short explanations.
 		 */
 		feature Outlet {
-			targetProject = "04_traffic_light_ui"
+			targetProject = "04_traffic_light_ui_solution"
 			targetFolder = "src"
 		}
 		feature Naming {
