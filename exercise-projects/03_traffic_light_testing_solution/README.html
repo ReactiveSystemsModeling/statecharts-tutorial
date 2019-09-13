@@ -2,32 +2,30 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Solution 2: traffic light with data store</title>
+<title>Solution 3: traffic light testing</title>
 <link href="./resources/doc/css/style.css" rel="stylesheet">
 </head>
-<body class="body-container">
+<body>
 
-  <h1>Solution 2: traffic light with data store</h1>
+  <div class="jumbotron text-center">
+    <h3>Solution 3</h3>
+    <h2>Traffic Light Testing</h2>
+    <p>
+        <img class="standard-image" alt="Testing a traffic light"
+          src="resources/doc/trafficlighttests.png" />
+    </p>
+    <p>A test specification with a complete set of test cases allows to automatically check that a statechart conforms 
+      to the system requirements.
+      Additionally the coverage analysis provides a hint on gaps in the tests.
+    </p>
 
-  <p>This example demonstrates how to to generate Javacode from a statechart. The procedure is explained in the documentation, chapter "Java code generator". </p>
+   </div>  
 
-  <p>
-    <img class="standard-image" alt="The statechart"
-      src="images/TrafficLightCtrl.png" />
-  </p>
+  <div class="body-container__">
 
-  <p>In summary, there are two traffic lights: one for the traffic on the street, and
-    one for pedestrians who want to cross the street. They can push a button to
-    request their traffic light to turn green, which activates a blinking
-    wait-light first. The street's traffic light then goes through the standard
-    procedure, turning on the yellow light, followed by the red light, allowing
-    the pedestrians to cross safely. After some time, the pedestrians' traffic
-    light turns red again, and the cars are allowed to pass until the next
-    request is made by a pedestrian.</p>
+    <h2>Take a look at the solution & run the tests!</h2>
 
-  <p>Additionally, the traffic light can be switched off completely. This
-    turns the yellow lights into a blinking mode, signaling that the traffic
-    light is indeed switched off and that the street should be crossed in a
-    careful manner.</p>
+  </div>
+
 </body>
 </html>

@@ -9,9 +9,9 @@ testclass TrafficLightTests for statechart TrafficLightCtrl {
 		// when
 		enter
 		// then traffic light is off which means no color was switched on
-		assert TrafficLight.displayRed
-		assert !TrafficLight.displayGreen
-		assert !TrafficLight.displayYellow
+		assert displayRed
+		assert !displayGreen
+		assert !displayYellow
 	}
 	
 
@@ -22,7 +22,7 @@ testclass TrafficLightTests for statechart TrafficLightCtrl {
 		// when
 		proceed 60s
 		// then 
-		assert TrafficLight.displayGreen
+		assert displayGreen
 	}
 	
 
@@ -33,7 +33,7 @@ testclass TrafficLightTests for statechart TrafficLightCtrl {
 		// when
 		proceed 55s
 		// then 
-		assert TrafficLight.displayYellow
+		assert displayYellow
 	}
 
 
@@ -44,7 +44,7 @@ testclass TrafficLightTests for statechart TrafficLightCtrl {
 		// when
 		proceed 5s
 		// then 
-		assert TrafficLight.displayRed
+		assert displayRed
 	}
 	
 
@@ -61,17 +61,17 @@ testclass TrafficLightTests for statechart TrafficLightCtrl {
 			//when
 			proceed 60 s
 			// then
-			assert TrafficLight.displayGreen
+			assert displayGreen
 
 			//when
 			proceed 55 s
 			// then
-			assert TrafficLight.displayYellow
+			assert displayYellow
 
 			//when
 			proceed 5 s
 			// then
-			assert TrafficLight.displayRed
+			assert displayRed
 		}
 	}
 	
