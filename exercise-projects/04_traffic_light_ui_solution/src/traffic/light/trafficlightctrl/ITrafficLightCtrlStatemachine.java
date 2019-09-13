@@ -10,8 +10,6 @@ import traffic.light.ITimerCallback;
 public interface ITrafficLightCtrlStatemachine extends ITimerCallback,IStatemachine {
 	public interface SCInterface {
 	
-		public void raisePolice_interrupt();
-		
 		public long getRedPeriod();
 		
 		public void setRedPeriod(long value);

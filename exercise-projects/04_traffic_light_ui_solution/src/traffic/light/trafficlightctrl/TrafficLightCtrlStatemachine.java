@@ -10,14 +10,6 @@ import traffic.light.ITimer;
 public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachine {
 	protected class SCInterfaceImpl implements SCInterface {
 	
-		private boolean police_interrupt;
-		
-		
-		public synchronized void raisePolice_interrupt() {
-			police_interrupt = true;
-			runCycle();
-		}
-		
 		private long redPeriod;
 		
 		public synchronized long getRedPeriod() {
@@ -48,9 +40,6 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 			this.yellowPeriod = value;
 		}
 		
-		protected void clearEvents() {
-			police_interrupt = false;
-		}
 	}
 	
 	
@@ -215,7 +204,6 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 	* This method resets the incoming events (time events included).
 	*/
 	protected void clearEvents() {
-		sCInterface.clearEvents();
 		sCITrafficLight.clearEvents();
 		for (int i=0; i<timeEvents.length; i++) {
 			timeEvents[i] = false;
@@ -277,10 +265,6 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 	
 	public SCITrafficLight getSCITrafficLight() {
 		return sCITrafficLight;
-	}
-	
-	public synchronized void raisePolice_interrupt() {
-		sCInterface.raisePolice_interrupt();
 	}
 	
 	public synchronized long getRedPeriod() {

@@ -1,9 +1,20 @@
+/* A sgen file defines a generator model for a specific kind of code generator.
+ * You can choose different code generators. In this case the java code generator is chosen.
+ * simply place the curser behind the colon and press ctrl-space.
+ *                          | 
+ *                          v                                   */
 GeneratorModel for yakindu::java {
 
+	/* The configured Java generator can generate code for several statecharts.
+	 * For each statechart a statechart entry can be defined. This entry references the statechart.
+	 *         vvvvvvvvvvvvvvvv                                       */
 	statechart TrafficLightCtrl {
 
+		/* Different features can be cofigured. Place the curser 
+		 * between or within features and press ctrl-space to get proposals and short explanations.
+		 */
 		feature Outlet {
-			targetProject = "04_traffic_light_ui_solution"
+			targetProject = "04_traffic_light_ui"
 			targetFolder = "src"
 		}
 		feature Naming {
@@ -16,6 +27,10 @@ GeneratorModel for yakindu::java {
 			synchronized = true
 		}
 		
-		
 	}
 }
+
+/* Code generation is automatically triggered if:
+ * 1. the referenced statecharts change
+ * 2. the .sgen file itself is changed and saved. 
+ */
