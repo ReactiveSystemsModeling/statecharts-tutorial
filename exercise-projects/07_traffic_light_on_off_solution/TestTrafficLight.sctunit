@@ -1,7 +1,9 @@
 package trafficlight.test
 
 testsuite TestTrafficLight {
-	
+
+	trafficlight.test.SignalCycleSpecification,	
+	trafficlight.test.InterruptSpecification,
 	trafficlight.test.SwitchOnOffSpecification
 	
 }

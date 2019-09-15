@@ -92,15 +92,29 @@ testclass InterruptSpecification for statechart TrafficLightCtrl {
 		lightIsNotBlinking
 	}
 
+	
+	
+	operation lightIsActivated () {
+				
+		// given the traffic light is inactive
+		assert !is_active
+		
+		// when
+		enter
+		
+		// then traffic light is off which means no color was switched on
+		assert !TrafficLight.displayRed
+		assert !TrafficLight.displayGreen
+		assert !TrafficLight.displayYellow
+	}
+	
 
 	operation lightIsRed() {
 		
 		//given
-		assert ! is_active
-		
+		lightIsActivated
 		// when 
-		enter
-		
+		raise toggle
 		// then
 		assert TrafficLight.displayRed
 	}
