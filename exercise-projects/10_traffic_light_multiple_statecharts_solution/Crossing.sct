@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
-  <sgraph:Statechart xmi:id="_M9xKENYLEemLyKEATpJFDw" specification="@EventDriven&#xA;@ChildFirstExecution&#xA;&#xA;import : &quot;traffic.light.trafficlightctrl.TrafficLightCtrlStatemachine&quot;&#xA;import : &quot;java.util.List&quot;&#xA; &#xA;&#xA;interface:&#xA;&#xA;in event toggleOnOff&#xA;in event toggleInterrupt&#xA;&#xA;var trafficLightA : TrafficLightCtrlStatemachine&#xA;var trafficLightB : TrafficLightCtrlStatemachine&#xA;&#xA;&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;" name="Crossing" domainID="com.yakindu.domain.java">
+  <sgraph:Statechart xmi:id="_M9xKENYLEemLyKEATpJFDw" specification="@EventDriven&#xA;@ChildFirstExecution&#xA;&#xA;import : &quot;traffic.light.trafficlightctrl.TrafficLightCtrlStatemachine&quot; &#xA;&#xA;interface:&#xA;&#xA;in event toggleOnOff&#xA;in event toggleInterrupt&#xA;&#xA;var trafficLightA : TrafficLightCtrlStatemachine&#xA;var trafficLightB : TrafficLightCtrlStatemachine&#xA;&#xA;&#xA;&#x9;&#xA;&#xA;&#xA;&#xA;" name="Crossing" domainID="com.yakindu.domain.java">
     <regions xmi:id="_M9zmUNYLEemLyKEATpJFDw" name="crossing control">
       <vertices xsi:type="sgraph:Entry" xmi:id="_M96UAdYLEemLyKEATpJFDw">
         <outgoingTransitions xmi:id="_M98wQNYLEemLyKEATpJFDw" target="_M967F9YLEemLyKEATpJFDw"/>
