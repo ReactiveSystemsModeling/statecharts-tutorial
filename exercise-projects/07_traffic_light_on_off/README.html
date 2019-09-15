@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Exercise 7: switching traffic light on and off</title>
+<link href="./resources/doc/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="jumbotron text-center">
+    <h3>Exercise 7</h3>
+    <h2>Switching traffic light on and off</h2>
+    <p>Add another hierarchy level that supports switching on and off the coomplete traffic light.
+      Go into detail with shallow and deep histories.
+    </p>
+    <p>
+        <img class="standard-image" alt="The statechart"
+          src="resources/doc/statechart.png" />
+      </p>
+   </div>  
+
+  <div class="body-container">
+
+    <p></p>
+
+    <h1>Requirements</h1>
+    <p>
+    </p>
+    <ul>
+      <li>R9: The traffic light can be switched on and off.</li>
+      <li>R9a: The traffic light is initially off.</li>
+      <li>R9b: If the traffic light is off nocht light is on.</li>
+      <li>R9c: After switching off and on again the traffic light must switch on the previously activated light.</li> 
+    </ul>
+
+      <h1>Model the feature</h1>
+      <p>
+        Follow the same procedure as in previous exercises.
+        <ol>
+          <li>Take a look at <i>specification/SwitchOnOffSpecification.sctunit</i>. These test cases are already complete and checks all the requirements defined above. 
+            It will fail on the first run.</li>
+          <li>Extend the stetchart. All required declarations are already in place.</li>
+          <li>While you are extending the statechart run the test suite <i>TestTrafficLight.sctunit</i>. It contains the new interrupt specification and 
+            all previously defined tests. Running this suit makes sure that no regressions occur.</li>
+          <li>Continue from 2. until all tests are green. You should also have no uncovered model elements.</li>
+        </ol>
+      </p>
+
+  </div>
+
+</body>
+</html>

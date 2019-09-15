@@ -1,0 +1,121 @@
+package trafficlight.test
+
+testclass SwitchOnOffSpecification for statechart TrafficLightCtrl {
+	
+	@Test operation lightIsActivated () {
+				
+		// given the traffic light is inactive
+		assert !is_active
+		
+		// when
+		enter
+		
+		// then traffic light is off which means no color was switched on
+		assert !TrafficLight.displayRed
+		assert !TrafficLight.displayGreen
+		assert !TrafficLight.displayYellow
+	}
+	
+
+	@Test operation lightIsSwitchedOnAfterActivated () {
+				
+		// given
+		lightIsActivated
+		
+		// when
+		raise toggle
+		
+		// then the traffic light is red 
+		assert TrafficLight.displayRed
+		assert !TrafficLight.displayGreen
+		assert !TrafficLight.displayYellow
+	}
+	
+
+	@Test operation lightSwitchedOffFromRed () {
+				
+		// given 
+		lightIsSwitchedOnAfterActivated
+		
+		// when
+		raise toggle
+		
+		// then 
+		assert TrafficLight.displayNone
+	}
+	
+
+	@Test operation lightSwitchedOnAfterSwitchedOffFromRed () {
+				
+		// given 
+		lightSwitchedOffFromRed
+		
+		// when
+		raise toggle
+		
+		// then 
+		assert TrafficLight.displayRed
+	}
+	
+
+	@Test operation lightSwitchedOffFromGreen () {
+				
+		// given 
+		lightIsSwitchedOnAfterActivated
+		// and lights became green
+		proceed 60 s
+		assert TrafficLight.displayGreen
+		
+		// when
+		raise toggle
+		
+		// then 
+		assert TrafficLight.displayNone
+	}
+
+	@Test operation lightSwitchedOnAfterSwitchedOffFromGreen () {
+				
+		// given 
+		lightSwitchedOffFromGreen
+		
+		// when
+		raise toggle
+		
+		// then 
+		assert TrafficLight.displayRed
+	}
+	
+
+	@Test operation lightSwitchedOffFromYellow () {
+				
+		// given 
+		lightIsSwitchedOnAfterActivated
+		// and lights became green
+		proceed 115 s
+		assert TrafficLight.displayYellow
+		
+		// when
+		raise toggle
+		
+		// then 
+		assert TrafficLight.displayNone
+	}
+
+
+	@Test operation lightSwitchedOnAfterSwitchedOffFromYellow () {
+				
+		// given 
+		lightSwitchedOffFromYellow
+		
+		// when
+		raise toggle
+		
+		// then 
+		assert TrafficLight.displayRed
+	}
+	
+
+
+
+}
+
