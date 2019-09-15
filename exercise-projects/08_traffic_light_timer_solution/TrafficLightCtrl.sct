@@ -34,10 +34,10 @@
               <vertices xsi:type="sgraph:State" xmi:id="_Nb79NDPREee5PeA_UCoIqQ" specification="entry / raise TrafficLight.displayGreen;&#xD;&#xA;&#x9;&#x9;&#x9;counter = greenPeriod;&#xD;&#xA;&#x9;&#x9;&#x9;raise resetTimer" name="Green" incomingTransitions="_Nb6vADPREee5PeA_UCoIqQ">
                 <outgoingTransitions xmi:id="_Nb9LRTPREee5PeA_UCoIqQ" specification="after greenPeriod s" target="_Nb_AeTPREee5PeA_UCoIqQ"/>
               </vertices>
-              <vertices xsi:type="sgraph:Entry" xmi:id="_yhdo0DPSEee5PeA_UCoIqQ" name="hist" incomingTransitions="_zc2TADPSEee5PeA_UCoIqQ" kind="DEEP_HISTORY"/>
+              <vertices xsi:type="sgraph:Entry" xmi:id="_yhdo0DPSEee5PeA_UCoIqQ" name="hist" incomingTransitions="_zc2TADPSEee5PeA_UCoIqQ" kind="SHALLOW_HISTORY"/>
             </regions>
           </vertices>
-          <vertices xsi:type="sgraph:Entry" xmi:id="_jy-hcDSeEeeAPdsPiQ6GsA">
+          <vertices xsi:type="sgraph:Entry" xmi:id="_jy-hcDSeEeeAPdsPiQ6GsA" kind="DEEP_HISTORY">
             <outgoingTransitions xmi:id="_ksimsDSeEeeAPdsPiQ6GsA" specification="" target="_iLXc8DP6Eee5PeA_UCoIqQ"/>
           </vertices>
         </regions>

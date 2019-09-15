@@ -82,7 +82,7 @@ testclass SwitchOnOffSpecification for statechart TrafficLightCtrl {
 		raise toggle
 		
 		// then 
-		assert TrafficLight.displayRed
+		assert TrafficLight.displayGreen
 	}
 	
 
@@ -111,7 +111,7 @@ testclass SwitchOnOffSpecification for statechart TrafficLightCtrl {
 		raise toggle
 		
 		// then 
-		assert TrafficLight.displayRed
+		assert TrafficLight.displayYellow
 	}
 	
 
