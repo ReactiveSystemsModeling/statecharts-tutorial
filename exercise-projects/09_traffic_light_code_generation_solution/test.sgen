@@ -4,7 +4,7 @@ GeneratorModel for sctunit::java {
 
 		feature Outlet {
 			targetProject = "09_traffic_light_code_generation_solution"
-			targetFolder = "src-gen"
+			targetFolder = "src"
 		}
 		
 		feature Naming {

@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Default timer service implementation.
  *
  */
-public class MyTimerService implements ITimer {
+public class ScaledTimeTimerService implements ITimer {
 
 	private final Timer timer = new Timer();
 	
@@ -23,11 +23,11 @@ public class MyTimerService implements ITimer {
 	private long start_time = -1;
 	private long simulated_time = 0;
 	
-	public MyTimerService(double realtime_scale) {
+	public ScaledTimeTimerService(double realtime_scale) {
 		this.realtime_scale = realtime_scale;
 		this.simulated_time = 0;
 	}
-	public MyTimerService() {}
+	public ScaledTimeTimerService() {}
 	
 	private void init() {
 		start_time = System.currentTimeMillis();
@@ -67,7 +67,7 @@ public class MyTimerService implements ITimer {
 		}
 	
 		public void run() {
-			MyTimerService.this.simulated_time = next_time;
+			ScaledTimeTimerService.this.simulated_time = next_time;
 			callback.timeElapsed(eventID);
 		}
 		

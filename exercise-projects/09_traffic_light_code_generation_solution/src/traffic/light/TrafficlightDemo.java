@@ -1,39 +1,29 @@
 package traffic.light;
 
-import java.awt.BorderLayout;
-import java.awt.Graphics;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.JFrame;
-
-import traffic.light.ui.*;
-import traffic.light.ui.Counter.Color;
+import traffic.light.ITimer;
 import traffic.light.trafficlightctrl.ITrafficLightCtrlStatemachine;
 import traffic.light.trafficlightctrl.TrafficLightCtrlStatemachine;
+import traffic.light.ui.Counter.Color;
+import traffic.light.ui.TrafficLightFrame;
 
-public class TrafficlightDemo extends JFrame {
+public class TrafficlightDemo extends TrafficLightFrame {
 
 	private static final long serialVersionUID = -8909693541678814631L;
 
 	protected TrafficLightCtrlStatemachine statemachine;
 
 	protected ITimer timer;
-
-	private CrossWalkPanel crossing;
-
-	private ButtonPanel buttonPanel;
+	
+//	private CrossWalkPanel crossing;
+//
+//	private ButtonPanel buttonPanel;
 
 	public static void main(String[] args) {
 		TrafficlightDemo application = new TrafficlightDemo();
-		application.addWindowListener(new WindowAdapter() {			
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
-		application.createContents();
+		application.init();
+		
 		application.setupStatemachine();
+		
 		application.run();
 	}
 
@@ -42,25 +32,10 @@ public class TrafficlightDemo extends JFrame {
 		//RuntimeService.getInstance().registerStatemachine(statemachine, 1);
 	}
 
-	protected void createContents() {
-		setLayout(new BorderLayout());
-		setTitle("Trafficlight");
-		crossing = new CrossWalkPanel();
-		add(BorderLayout.CENTER, crossing);
-		buttonPanel = new ButtonPanel();
-		add(BorderLayout.SOUTH, buttonPanel);
-		setSize(250, 550);
-		setVisible(true);
-	}
-
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-	}
 
 	protected void setupStatemachine() {
 		statemachine = new TrafficLightCtrlStatemachine();
-		timer = new MyTimerService(5.0);
+		timer = new ScaledTimeTimerService(5.0);
 		statemachine.setTimer(timer);
 		
 		statemachine.getSCITrafficLight().getListeners().add(new ITrafficLightCtrlStatemachine.SCITrafficLightListener() {			

@@ -42,7 +42,7 @@ public class TimerTest {
 		assertTrue(statemachine.isStateActive(State.main_main_trafficlight_normal_normal_Red));
 		assertTrue(statemachine.getSCITrafficLight().isRaisedDisplayRed());
 		assertTrue(statemachine.getSCITimer().isRaisedUpdateTimerValue());
-		assertTrue(/* generate org.yakindu.sct.model.stext.stext.impl.EventValueReferenceExpressionImpl@3ba60f71 not yet implemented */ == statemachine.getRedPeriod());
+		assertTrue(statemachine.getSCITimer().getUpdateTimerValueValue() == statemachine.getRedPeriod());
 		assertTimerValueCountsDownToOneEverySecond();
 	}
 	
@@ -50,11 +50,11 @@ public class TimerTest {
 	public void timerDisplaysRemainingTimeWhileTheLightIsGreed() {
 		statemachine.enter();
 		statemachine.getSCInterface().raiseToggle();
-		timer.timeLeap(60000);
+		timer.timeLeap(60l*1000l);
 		assertTrue(statemachine.isStateActive(State.main_main_trafficlight_normal_normal_Green));
 		assertTrue(statemachine.getSCITrafficLight().isRaisedDisplayGreen());
 		assertTrue(statemachine.getSCITimer().isRaisedUpdateTimerValue());
-		assertTrue(/* generate org.yakindu.sct.model.stext.stext.impl.EventValueReferenceExpressionImpl@7e62f48f not yet implemented */ == statemachine.getGreenPeriod());
+		assertTrue(statemachine.getSCITimer().getUpdateTimerValueValue() == statemachine.getGreenPeriod());
 		assertTimerValueCountsDownToOneEverySecond();
 	}
 	
@@ -62,24 +62,24 @@ public class TimerTest {
 	public void timerDisabledWhileTheLightIsYellow() {
 		statemachine.enter();
 		statemachine.getSCInterface().raiseToggle();
-		timer.timeLeap(60000);
-		timer.timeLeap(55000);
+		timer.timeLeap(60l*1000l);
+		timer.timeLeap(55l*1000l);
 		assertTrue(statemachine.isStateActive(State.main_main_trafficlight_normal_normal_Yellow));
 		assertTrue(statemachine.getSCITrafficLight().isRaisedDisplayYellow());
 		assertTrue(statemachine.getSCITimer().isRaisedUpdateTimerValue());
-		assertTrue(/* generate org.yakindu.sct.model.stext.stext.impl.EventValueReferenceExpressionImpl@47e66333 not yet implemented */ == statemachine.getSCITimer().getOFF());
+		assertTrue(statemachine.getSCITimer().getUpdateTimerValueValue() == statemachine.getSCITimer().getOFF());
 	}
 	
 	@Test
 	public void timerDisabledWhileLightIsInterrupted() {
 		statemachine.enter();
 		statemachine.getSCInterface().raiseToggle();
-		timer.timeLeap(10000);
+		timer.timeLeap((5l+5l)*1000l);
 		statemachine.getSCInterface().raisePolice_interrupt();
 		assertTrue(statemachine.isStateActive(State.main_main_trafficlight_interrupted));
 		assertTrue(statemachine.getSCITrafficLight().isRaisedDisplayYellow());
 		assertTrue(statemachine.getSCITimer().isRaisedUpdateTimerValue());
-		assertTrue(/* generate org.yakindu.sct.model.stext.stext.impl.EventValueReferenceExpressionImpl@2323e466 not yet implemented */ == statemachine.getSCITimer().getOFF());
+		assertTrue(statemachine.getSCITimer().getUpdateTimerValueValue() == statemachine.getSCITimer().getOFF());
 	}
 	
 	@Test
@@ -89,26 +89,26 @@ public class TimerTest {
 		assertTrue(statemachine.isStateActive(State.main_main_trafficlight_normal_normal_Red));
 		assertTrue(statemachine.getSCITrafficLight().isRaisedDisplayRed());
 		assertTrue(statemachine.getSCITimer().isRaisedUpdateTimerColour());
-		assertTrue(/* generate org.yakindu.sct.model.stext.stext.impl.EventValueReferenceExpressionImpl@6840e13c not yet implemented */.equals("Red"));
+		assertTrue(statemachine.getSCITimer().getUpdateTimerColourValue().equals("Red"));
 	}
 	
 	@Test
 	public void timerIsGreedWhileTheLightIsGreen() {
 		statemachine.enter();
 		statemachine.getSCInterface().raiseToggle();
-		timer.timeLeap(60000);
+		timer.timeLeap(60l*1000l);
 		assertTrue(statemachine.isStateActive(State.main_main_trafficlight_normal_normal_Green));
 		assertTrue(statemachine.getSCITrafficLight().isRaisedDisplayGreen());
 		assertTrue(statemachine.getSCITimer().isRaisedUpdateTimerColour());
-		assertTrue(/* generate org.yakindu.sct.model.stext.stext.impl.EventValueReferenceExpressionImpl@74380a1a not yet implemented */.equals("Green"));
+		assertTrue(statemachine.getSCITimer().getUpdateTimerColourValue().equals("Green"));
 	}
 	
 	public void assertTimerValueCountsDownToOneEverySecond() {
-		long lastValue = /* generate org.yakindu.sct.model.stext.stext.impl.EventValueReferenceExpressionImpl@58f55553 not yet implemented */;
-		while (/* generate org.yakindu.sct.model.stext.stext.impl.EventValueReferenceExpressionImpl@2d088c95 not yet implemented */ > 1l) {
-			timer.timeLeap(1000);
-			assertTrue(/* generate org.yakindu.sct.model.stext.stext.impl.EventValueReferenceExpressionImpl@497a272b not yet implemented */ == lastValue-1l);
-			lastValue = /* generate org.yakindu.sct.model.stext.stext.impl.EventValueReferenceExpressionImpl@16f323c9 not yet implemented */;
+		long lastValue = statemachine.getSCITimer().getUpdateTimerValueValue();
+		while (statemachine.getSCITimer().getUpdateTimerValueValue() > 1l) {
+			timer.timeLeap(1l*1000l);
+			assertTrue(statemachine.getSCITimer().getUpdateTimerValueValue() == lastValue-1l);
+			lastValue = statemachine.getSCITimer().getUpdateTimerValueValue();
 		}
 	}
 }
