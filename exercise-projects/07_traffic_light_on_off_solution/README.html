@@ -5,29 +5,51 @@
 <title>Solution 7: switching traffic light on and off</title>
 <link href="./resources/doc/css/style.css" rel="stylesheet">
 </head>
-<body class="body-container">
+<body>
 
-  <h1>Solution 7: switching traffic light on and off</h1>
+  <div class="jumbotron text-center">
+    <h3>Solution 7</h3>
+    <h2>Switching traffic light on and off</h2>
+    <p>In this exercise you modeled a statechart extension using a test driven approach. 
+      The result should be comparable to the follwing statechart... </p>
+    <p>
+        <img class="standard-image" alt="The statechart"
+          src="resources/doc/statechart.png" />
+      </p>
+   </div>  
 
-  <p>This example demonstrates how to to generate Javacode from a statechart. The procedure is explained in the documentation, chapter "Java code generator". </p>
+  <div class="body-container__">
 
-  <p>
-    <img class="standard-image" alt="The statechart"
-      src="images/TrafficLightCtrl.png" />
-  </p>
+    <h2>How does the model cover the requirements?</h2>  
+    <div class="table-responsive">
+      <table class="table-hover table-bordered">
+        <tr>
+          <th>requirement</th>
+          <th>modelling approach</th>
+        </tr>
+        <tr>
+          <td>R9:The traffic light can be switched on and off</td>
+          <td>An new incoming event <i>toggle</i> triggers a ransition between two new states <i>on</i> and <i>off</i>. </td>
+          </tr>
+        <tr>
+          <td>R9a: The traffic light is initially off.</td>
+          <td>The initial state is <i>off</i>.</td>
+        </tr>
+        <tr>
+          <td>R9b: If the traffic light is off no light is on.</td>
+          <td>When state <i>off</i> is initially activated then no lights are switched on. If the previous state is <i>on</i> 
+            then lights are switched while leaving state <i>on</i>.</td>
+        </tr>
+        <tr>
+          <td>R9c: After switching off and on again the traffic light must switch on the previously activated light.</td>
+          <td>State <i>normal</i> is entered using a deep history. This restores all states.</td>
+        </tr>
+    
+      </table>
+    </div>
+    </p>
 
-  <p>In summary, there are two traffic lights: one for the traffic on the street, and
-    one for pedestrians who want to cross the street. They can push a button to
-    request their traffic light to turn green, which activates a blinking
-    wait-light first. The street's traffic light then goes through the standard
-    procedure, turning on the yellow light, followed by the red light, allowing
-    the pedestrians to cross safely. After some time, the pedestrians' traffic
-    light turns red again, and the cars are allowed to pass until the next
-    request is made by a pedestrian.</p>
+  </div>
 
-  <p>Additionally, the traffic light can be switched off completely. This
-    turns the yellow lights into a blinking mode, signaling that the traffic
-    light is indeed switched off and that the street should be crossed in a
-    careful manner.</p>
 </body>
 </html>

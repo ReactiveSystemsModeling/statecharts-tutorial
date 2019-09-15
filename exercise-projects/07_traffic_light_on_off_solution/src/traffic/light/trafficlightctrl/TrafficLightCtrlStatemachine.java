@@ -158,7 +158,7 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		$NullState$
 	};
 	
-	private State[] historyVector = new State[1];
+	private State[] historyVector = new State[3];
 	private final State[] stateVector = new State[1];
 	
 	private int nextStateIndex;
@@ -180,7 +180,7 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		for (int i = 0; i < 1; i++) {
 			stateVector[i] = State.$NullState$;
 		}
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 3; i++) {
 			historyVector[i] = State.$NullState$;
 		}
 		clearEvents();
@@ -442,6 +442,7 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 	/* 'default' enter sequence for state interrupted */
 	private void enterSequence_main_main_trafficlight_interrupted_default() {
 		enterSequence_main_main_trafficlight_interrupted_blinking_default();
+		historyVector[0] = stateVector[0];
 	}
 	
 	/* 'default' enter sequence for state Black */
@@ -449,6 +450,8 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		entryAction_main_main_trafficlight_interrupted_blinking_Black();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_main_trafficlight_interrupted_blinking_Black;
+		
+		historyVector[1] = stateVector[0];
 	}
 	
 	/* 'default' enter sequence for state Yellow */
@@ -456,11 +459,14 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		entryAction_main_main_trafficlight_interrupted_blinking_Yellow();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_main_trafficlight_interrupted_blinking_Yellow;
+		
+		historyVector[1] = stateVector[0];
 	}
 	
 	/* 'default' enter sequence for state normal */
 	private void enterSequence_main_main_trafficlight_normal_default() {
 		enterSequence_main_main_trafficlight_normal_normal_default();
+		historyVector[0] = stateVector[0];
 	}
 	
 	/* 'default' enter sequence for state Red */
@@ -469,7 +475,7 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		nextStateIndex = 0;
 		stateVector[0] = State.main_main_trafficlight_normal_normal_Red;
 		
-		historyVector[0] = stateVector[0];
+		historyVector[2] = stateVector[0];
 	}
 	
 	/* 'default' enter sequence for state Yellow */
@@ -478,7 +484,7 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		nextStateIndex = 0;
 		stateVector[0] = State.main_main_trafficlight_normal_normal_Yellow;
 		
-		historyVector[0] = stateVector[0];
+		historyVector[2] = stateVector[0];
 	}
 	
 	/* 'default' enter sequence for state Green */
@@ -487,7 +493,7 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		nextStateIndex = 0;
 		stateVector[0] = State.main_main_trafficlight_normal_normal_Green;
 		
-		historyVector[0] = stateVector[0];
+		historyVector[2] = stateVector[0];
 	}
 	
 	/* 'default' enter sequence for state off */
@@ -506,9 +512,46 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		react_main_main_trafficlight__entry_Default();
 	}
 	
+	/* deep enterSequence with history in child trafficlight */
+	private void deepEnterSequence_main_main_trafficlight() {
+		switch (historyVector[0]) {
+		case main_main_trafficlight_interrupted_blinking_Black:
+			deepEnterSequence_main_main_trafficlight_interrupted_blinking();
+			break;
+		case main_main_trafficlight_interrupted_blinking_Yellow:
+			deepEnterSequence_main_main_trafficlight_interrupted_blinking();
+			break;
+		case main_main_trafficlight_normal_normal_Red:
+			deepEnterSequence_main_main_trafficlight_normal_normal();
+			break;
+		case main_main_trafficlight_normal_normal_Yellow:
+			deepEnterSequence_main_main_trafficlight_normal_normal();
+			break;
+		case main_main_trafficlight_normal_normal_Green:
+			deepEnterSequence_main_main_trafficlight_normal_normal();
+			break;
+		default:
+			break;
+		}
+	}
+	
 	/* 'default' enter sequence for region blinking */
 	private void enterSequence_main_main_trafficlight_interrupted_blinking_default() {
 		react_main_main_trafficlight_interrupted_blinking__entry_Default();
+	}
+	
+	/* deep enterSequence with history in child blinking */
+	private void deepEnterSequence_main_main_trafficlight_interrupted_blinking() {
+		switch (historyVector[1]) {
+		case main_main_trafficlight_interrupted_blinking_Black:
+			enterSequence_main_main_trafficlight_interrupted_blinking_Black_default();
+			break;
+		case main_main_trafficlight_interrupted_blinking_Yellow:
+			enterSequence_main_main_trafficlight_interrupted_blinking_Yellow_default();
+			break;
+		default:
+			break;
+		}
 	}
 	
 	/* 'default' enter sequence for region normal */
@@ -518,7 +561,24 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 	
 	/* deep enterSequence with history in child normal */
 	private void deepEnterSequence_main_main_trafficlight_normal_normal() {
-		switch (historyVector[0]) {
+		switch (historyVector[2]) {
+		case main_main_trafficlight_normal_normal_Red:
+			enterSequence_main_main_trafficlight_normal_normal_Red_default();
+			break;
+		case main_main_trafficlight_normal_normal_Yellow:
+			enterSequence_main_main_trafficlight_normal_normal_Yellow_default();
+			break;
+		case main_main_trafficlight_normal_normal_Green:
+			enterSequence_main_main_trafficlight_normal_normal_Green_default();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* shallow enterSequence with history in child normal */
+	private void shallowEnterSequence_main_main_trafficlight_normal_normal() {
+		switch (historyVector[2]) {
 		case main_main_trafficlight_normal_normal_Red:
 			enterSequence_main_main_trafficlight_normal_normal_Red_default();
 			break;
@@ -690,19 +750,24 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		enterSequence_main_main_trafficlight_normal_normal_Red_default();
 	}
 	
-	/* Default react sequence for deep history entry hist */
+	/* Default react sequence for shallow history entry hist */
 	private void react_main_main_trafficlight_normal_normal_hist() {
-		/* Enter the region with deep history */
-		if (historyVector[0] != State.$NullState$) {
-			deepEnterSequence_main_main_trafficlight_normal_normal();
+		/* Enter the region with shallow history */
+		if (historyVector[2] != State.$NullState$) {
+			shallowEnterSequence_main_main_trafficlight_normal_normal();
 		} else {
 			enterSequence_main_main_trafficlight_normal_normal_Red_default();
 		}
 	}
 	
-	/* Default react sequence for initial entry  */
+	/* Default react sequence for deep history entry  */
 	private void react_main_main_trafficlight__entry_Default() {
-		enterSequence_main_main_trafficlight_normal_default();
+		/* Enter the region with deep history */
+		if (historyVector[0] != State.$NullState$) {
+			deepEnterSequence_main_main_trafficlight();
+		} else {
+			enterSequence_main_main_trafficlight_normal_default();
+		}
 	}
 	
 	/* Default react sequence for initial entry  */
@@ -739,6 +804,8 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 			if (sCInterface.police_interrupt) {
 				exitSequence_main_main_trafficlight_interrupted();
 				react_main_main_trafficlight_normal_normal_hist();
+				historyVector[0] = stateVector[0];
+				
 				main_main_react(false);
 			} else {
 				did_transition = false;
