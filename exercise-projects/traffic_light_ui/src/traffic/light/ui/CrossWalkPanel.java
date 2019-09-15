@@ -1,5 +1,6 @@
 package traffic.light.ui;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -14,6 +15,10 @@ public class CrossWalkPanel extends JPanel {
 		super();
 		trafficLight = new TrafficLight();
 		counter = new Counter();
+		add(trafficLight);
+		add(counter);
+		setPreferredSize(new Dimension(240,400));
+		setVisible(true);
 	}
 	
 	public TrafficLight getTrafficLightVis() {
