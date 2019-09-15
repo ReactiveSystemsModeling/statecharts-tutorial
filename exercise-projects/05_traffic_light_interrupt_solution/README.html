@@ -20,8 +20,7 @@
 
   <div class="body-container__">
 
-    <h2>How does the model cover the requirements?</h2>
-
+    <h2>How does the model cover the requirements?</h2>  
     <div class="table-responsive">
       <table class="table-hover table-bordered">
         <tr>
@@ -29,26 +28,27 @@
           <th>modelling approach</th>
         </tr>
         <tr>
-          <td>R1: three differently coloured lights: red (R), green (G), yellow (Y)​</td>
-          <td>For each color a state is defined. Transitions that lead to a state raise the proper out event
-            which interacts with the plant.
+          <td>R6: police can interrupt autonomous operation​.</td>
+          <td>An new incoming event <i>police_interrupt</i> triggers a transition to a new state <i>interrupted.</i>
           </td>
         </tr>
         <tr>
-          <td>R2: at most one light is on at any point in time​</td>
-          <td>The states are all contained in a single region and thus a exclusive to each other.</td>
+          <td>R6a: Autonomous opreration can be interrupted during any pahse indicated by constant red, yellow and green lights.​</td>
+          <td>The states <i>Red</i>, <i>Green</i>, and <i>Yellow</i> are grouped within a new composite state <i>normal</i>. This state is the 
+            source state of the transition to state <i>interrupted</i> and thus also applies to all substates.</td>
         </tr>
         <tr>
-          <td>R3: at system start-up, the red light is on​</td>
-          <td>The entry node points to state <i>Red</i> and the entry transition raises the event <i>displayRed</i>.</td>
+          <td>R7: In interruptetd mode the yellow light blinks with a constant frequency of 1 Hz. (on -> 0.5s, off 0.5s).​</td>
+          <td>State <i>interrupted</i> is a composite state with two substates <i>Yellow</i> and <i>Black</i>. These 
+            switch the yellow light on and off. Timed transitions between these states ensure correct timing for blinking.</td>
         </tr>
         <tr>
-          <td>R4: cycles through red on, green on, and yellow on​</td>
-          <td>The transitions define this cycle.</td>
+          <td>R8: Police can resume to regular autonomous operation.​</td>
+          <td>A transition triggered by <i>police_interrupt</i> leads from state <i>interrupted</i> to state <i>normal</i>.</td>
         </tr>
         <tr>
-          <td>R5: red is on for 60s, green is on for 55s, yellow is on for 5s​</td>
-          <td>Time events are specified on the transitions.</td>
+          <td>R8a: When ​regular operation is resumed the traffic light restarts with red (R) light on.</td>
+          <td>When activating state <i>normal</i> its substate <i>Red</i> is activated by default.</td>
         </tr>
       </table>
     </div>

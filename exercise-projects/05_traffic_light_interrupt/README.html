@@ -10,13 +10,13 @@
   <div class="jumbotron text-center">
     <h3>Exercise 5</h3>
     <h2>Interruptable Traffic Light</h2>
-    <p>The traffic light will be extended. It will support an interrupted mode. 
+    <p>The police should be able to interrupt the traffic light during its regular autonomous operation. 
       This additional feature should be defined using hierarchical states.
       The tests for the new requirements are already defines as a testable specification. So a test driven approach is applied.
     </p>
     <p>
         <img class="standard-image" alt="The statechart"
-          src="resources/doc/statechart.png" />
+          src="resources/doc/statechart.jpg" />
       </p>
    </div>  
 
@@ -24,37 +24,28 @@
 
     <p></p>
 
-    <h1>Read Requirements</h1>
+    <h1>Requirements</h1>
     <p>
-      The traffic light statechart must implement the follwoing requirements:
+      In addition to the previous requirements you have to consider these additional requirements:
     </p>
     <ul>
-      <li>R1: three differently coloured lights: red (R), green (G), yellow (Y)​</li>
-      <li>R2: at most one light is on at any point in time​</li>
-      <li>R3: at system start-up, the red light is on​</li>
-      <li>R4: cycles through red on, green on, and yellow on​</li>
-      <li>R5: red is on for 60s, green is on for 55s, yellow is on for 5s​</li>
+      <li>R6: police can interrupt autonomous operation​./li>
+      <li>R6a: Autonomous opreration can be interrupted during any pahse indicated by constant red, yellow and green lights.​</li>
+      <li>R7: In interruptetd mode the yellow light blinks with a constant frequency of 1 Hz. (on -> 0.5s, off 0.5s).</li>
+      <li>R8: Police can resume to regular autonomous operation.​</li>
+      <li>R8a: when ​regular operation is resumed the traffic light restarts with red (R) light on.</li>
     </ul>
 
-    <h1>Extend the statechart</h1>
+      <h1>Model the interrupt feature</h1>
       <p>
-        You have to extend the prepared statechart using the YAKINDU statechart editor.
-      </p>
-  
-      <ul>
-        <li>Open the statechart <b>TrafficLight.sct</b> by double-clicking the file in the project explorer.</li>
-        <li>Follow the hints which are provided as comments in the model and add states, transitions, and declarations.</li>
-        <li>Define trigger and actions on the transition. Remember the syntax is '<i>trigger</i> / <i>action</i>'</li>
-        <li>Use time trigger (e.g. after 10s). </li>
-        <li>Hint: Try Ctrl-Space when editing text to get proposals.</li>
-      </ul>
-
-    <h1>Simulate the statechart</h1>
-      <p>
-        Any time while modeling you can run the simulation to check if everything is working 
-        according to the requirements. Simply right-click in the model and choose 'Run As > Statechart Simulation' 
-        from the context menu. You can even edit the statechart durin simulation. When you save the changes you will 
-        be asked to twerminate or restart the simulation. 
+        <ol>
+          <li>Take a look at <i>specification/InterruptSpecification.sctunit</i>. These test cases are already complete and checks all the requirements defined above. 
+            It will fail on the first run.</li>
+          <li>Extend the stetchart. All required declarations are already in place.</li>
+          <li>While you are extending the statechart run the test suite <i>TestTrafficLight.sctunit</i>. It contains the new interrupt specification and 
+            all previously defined tests. Running this suit makes sure that no regressions occur.</li>
+          <li>Continue from 2. until all tests are green. You should also have no uncovered model elements.</li>
+        </ol>
       </p>
 
   </div>
