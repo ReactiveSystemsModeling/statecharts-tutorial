@@ -37,7 +37,7 @@ public class TrafficlightDemo extends TrafficLightFrame {
 		
 		// Here the the state machine must be connected to the UI. Event listeners for out events can be registered.
 		
-		// TODO: the implementation here is incomplete. Add the missin method calls and methods.
+		// TODO: the implementation here is incomplete. Add the missing method calls and methods.
 		statemachine.getSCITrafficLight().getListeners().add(new ITrafficLightCtrlStatemachine.SCITrafficLightListener() {	
 			
 			@Override
