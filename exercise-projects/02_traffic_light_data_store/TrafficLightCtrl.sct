@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
-  <sgraph:Statechart xmi:id="_NPjBgBA-EeGQ0KsLDV4EFg" specification="@CycleBased(100)&#xD;&#xA;@ChildFirstExecution&#xD;&#xA;&#xD;&#xA;interface:&#xD;&#xA;  &#xD;&#xA; &#x9;// define variables that &#xD;&#xA; &#x9;// represent the light status&#xD;&#xA; &#x9;&#xD;&#xA; &#x9;// define variables or&#xD;&#xA; &#x9;// constants that hold the &#xD;&#xA; &#x9;// period time of  the phases&#xD;&#xA; &#x9;&#xD;&#xA; &#x9;// perhaps you need additional &#xD;&#xA; &#x9;// vars. " name="TrafficLightCtrl">
+  <sgraph:Statechart xmi:id="_NPjBgBA-EeGQ0KsLDV4EFg" specification="@CycleBased(100)&#xD;&#xA;&#xD;&#xA;interface:&#xD;&#xA;  &#xD;&#xA; &#x9;// define variables that &#xD;&#xA; &#x9;// represent the light status&#xD;&#xA; &#x9;&#xD;&#xA; &#x9;// define variables or&#xD;&#xA; &#x9;// constants that hold the &#xD;&#xA; &#x9;// period time of  the phases&#xD;&#xA; &#x9;&#xD;&#xA; &#x9;// perhaps you need additional &#xD;&#xA; &#x9;// vars. " name="TrafficLightCtrl">
     <regions xmi:id="_Uy33cNezEemfO5DDpYxYWQ" name="main">
       <vertices xsi:type="sgraph:Entry" xmi:id="_Uy33cdezEemfO5DDpYxYWQ">
         <outgoingTransitions xmi:id="_Uy33ctezEemfO5DDpYxYWQ" specification="" target="_Uy33dtezEemfO5DDpYxYWQ"/>

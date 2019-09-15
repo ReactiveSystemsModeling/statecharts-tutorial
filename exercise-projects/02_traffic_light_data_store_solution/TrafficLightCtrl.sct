@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
-  <sgraph:Statechart xmi:id="_NPjBgBA-EeGQ0KsLDV4EFg" specification="@CycleBased(100)&#xD;&#xA;@ChildFirstExecution&#xD;&#xA;&#xD;&#xA;interface:&#xD;&#xA;  &#xD;&#xA;&#x9;var green: boolean = false&#xD;&#xA; &#x9;var red: boolean = false&#xD;&#xA; &#x9;var yellow: boolean = false&#xD;&#xA; &#x9;var counter: integer = 0&#xD;&#xA; &#xD;&#xA; &#x9;var redPeriod : integer = 60&#xD;&#xA; &#x9;var greenPeriod : integer = 55&#xD;&#xA; &#x9;var yellowPeriod : integer = 5&#xD;&#xA;  " name="TrafficLightCtrl">
+  <sgraph:Statechart xmi:id="_NPjBgBA-EeGQ0KsLDV4EFg" specification="@CycleBased(100)&#xD;&#xA;&#xD;&#xA;interface:&#xD;&#xA;&#xD;&#xA;  var green: boolean = false&#xD;&#xA;  var red: boolean = false&#xD;&#xA;  var yellow: boolean = false&#xD;&#xA;  var counter: integer = 0&#xD;&#xA;&#xD;&#xA;  var redPeriod : integer = 60&#xD;&#xA;  var greenPeriod : integer = 55&#xD;&#xA;  var yellowPeriod : integer = 5&#xD;&#xA;  " name="TrafficLightCtrl">
     <regions xmi:id="_Uy33cNezEemfO5DDpYxYWQ" name="main">
       <vertices xsi:type="sgraph:Entry" xmi:id="_Uy33cdezEemfO5DDpYxYWQ">
         <outgoingTransitions xmi:id="_Uy33ctezEemfO5DDpYxYWQ" specification="/ red = true" target="_Uy33dtezEemfO5DDpYxYWQ"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_Uy33dtezEemfO5DDpYxYWQ" specification="" name="Red" incomingTransitions="_Uy33ctezEemfO5DDpYxYWQ _Uy33jNezEemfO5DDpYxYWQ">
-        <outgoingTransitions xmi:id="_8gHBsNezEemfO5DDpYxYWQ" specification="after redPeriod s / yellow = true" target="_ujIwjNezEemfO5DDpYxYWQ"/>
+        <outgoingTransitions xmi:id="_8gHBsNezEemfO5DDpYxYWQ" specification="after (redPeriod-6) s / yellow = true" target="_ujIwjNezEemfO5DDpYxYWQ"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_Uy33gNezEemfO5DDpYxYWQ" specification="" name="Green" incomingTransitions="_Uy33eNezEemfO5DDpYxYWQ">
         <outgoingTransitions xmi:id="_Uy33gtezEemfO5DDpYxYWQ" specification=" after greenPeriod s / &#xA; &#x9;green = false;&#xA; &#x9;yellow = true" target="_Uy33itezEemfO5DDpYxYWQ"/>
@@ -32,7 +32,7 @@
       <children xsi:type="notation:Shape" xmi:id="_NPsylBA-EeGQ0KsLDV4EFg" type="StatechartTextExpression" fontName="Verdana" lineColor="4210752">
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_NPsylRA-EeGQ0KsLDV4EFg"/>
       </children>
-      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_NPsylhA-EeGQ0KsLDV4EFg" x="-24" y="-48" width="176" height="449"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_NPsylhA-EeGQ0KsLDV4EFg" x="-24" y="-48" width="221" height="449"/>
     </children>
     <children xmi:id="_Uy3QYdezEemfO5DDpYxYWQ" type="Region" element="_Uy33cNezEemfO5DDpYxYWQ">
       <children xsi:type="notation:DecorationNode" xmi:id="_Uy3QYtezEemfO5DDpYxYWQ" type="RegionName">
@@ -132,7 +132,7 @@
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_Uy3QkNezEemfO5DDpYxYWQ"/>
       </children>
       <styles xsi:type="notation:ShapeStyle" xmi:id="_Uy3QkdezEemfO5DDpYxYWQ" fontName="Verdana" fillColor="15790320" lineColor="12632256"/>
-      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_Uy3QktezEemfO5DDpYxYWQ" x="156" y="-48" width="569" height="449"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_Uy3QktezEemfO5DDpYxYWQ" x="216" y="-52" width="569" height="449"/>
     </children>
     <styles xsi:type="notation:DiagramStyle" xmi:id="_NPjBghA-EeGQ0KsLDV4EFg"/>
     <styles xsi:type="notation:BooleanValueStyle" xmi:id="_L5R58MmkEemyA8AI2BXy4g" name="inlineDefinitionSection" booleanValue="true"/>
@@ -205,7 +205,7 @@
     <edges xmi:id="_8gHowNezEemfO5DDpYxYWQ" type="Transition" element="_8gHBsNezEemfO5DDpYxYWQ" source="_Uy3Qb9ezEemfO5DDpYxYWQ" target="_ujIJcdezEemfO5DDpYxYWQ">
       <children xsi:type="notation:DecorationNode" xmi:id="_8gIP0NezEemfO5DDpYxYWQ" type="TransitionExpression">
         <styles xsi:type="notation:ShapeStyle" xmi:id="_8gIP0dezEemfO5DDpYxYWQ"/>
-        <layoutConstraint xsi:type="notation:Location" xmi:id="_8gIP0tezEemfO5DDpYxYWQ" x="-1" y="-28"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_8gIP0tezEemfO5DDpYxYWQ" x="-5" y="-93"/>
       </children>
       <styles xsi:type="notation:ConnectorStyle" xmi:id="_8gHowdezEemfO5DDpYxYWQ" routing="Rectilinear" lineColor="4210752"/>
       <styles xsi:type="notation:FontStyle" xmi:id="_8gHow9ezEemfO5DDpYxYWQ" fontName="Verdana"/>
