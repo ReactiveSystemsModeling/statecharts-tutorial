@@ -93,7 +93,7 @@
         <layoutConstraint xsi:type="notation:Bounds" xmi:id="_xGgwf9X_EemXTveR7s8NtQ"/>
       </children>
       <styles xsi:type="notation:ShapeStyle" xmi:id="_xGgwgNX_EemXTveR7s8NtQ" fontName="Verdana" fillColor="15790320" lineColor="12632256"/>
-      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_xGgwgdX_EemXTveR7s8NtQ" y="-40" width="337" height="381"/>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_xGgwgdX_EemXTveR7s8NtQ" y="-48" width="337" height="381"/>
     </children>
     <styles xsi:type="notation:DiagramStyle" xmi:id="_NPjBghA-EeGQ0KsLDV4EFg"/>
     <styles xsi:type="notation:BooleanValueStyle" xmi:id="_L5R58MmkEemyA8AI2BXy4g" name="inlineDefinitionSection"/>
