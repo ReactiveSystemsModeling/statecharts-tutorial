@@ -5,29 +5,56 @@
 <title>Solution 2: traffic light with data store</title>
 <link href="./resources/doc/css/style.css" rel="stylesheet">
 </head>
-<body class="body-container">
+<body>
 
-  <h1>Solution 2: traffic light with data store</h1>
+  <div class="jumbotron text-center">
+    <h3>Solution 2</h3>
+    <h2>Traffic Light with Data Store</h2>
+    <p>You added a variables to the statechart and used guard conditions on transitions.  
+      The result should be comparable to the follwing statechart... </p>
+    <p>
+        <img class="standard-image" alt="The statechart"
+          src="resources/doc/statechart.png" />
+      </p>
+   </div>  
 
-  <p>This example demonstrates how to to generate Javacode from a statechart. The procedure is explained in the documentation, chapter "Java code generator". </p>
+  <div class="body-container__">
 
-  <p>
-    <img class="standard-image" alt="The statechart"
-      src="images/TrafficLightCtrl.png" />
-  </p>
+    <h2>How does the model covers the requirements?</h2>
 
-  <p>In summary, there are two traffic lights: one for the traffic on the street, and
-    one for pedestrians who want to cross the street. They can push a button to
-    request their traffic light to turn green, which activates a blinking
-    wait-light first. The street's traffic light then goes through the standard
-    procedure, turning on the yellow light, followed by the red light, allowing
-    the pedestrians to cross safely. After some time, the pedestrians' traffic
-    light turns red again, and the cars are allowed to pass until the next
-    request is made by a pedestrian.</p>
+    <div class="table-responsive">
+      <table class="table-hover table-bordered">
+        <tr>
+          <th>requirement</th>
+          <th>modelling approach</th>
+        </tr>
+        <tr>
+          <td>R1: three differently coloured lights: red (R), green (G), yellow (Y)​</td>
+          <td>For each color a state is defined. Transitions that lead to a state raise the proper out event
+            which interacts with the plant.
+          </td>
+        </tr>
+        <tr>
+          <td>R2: at most one light is on at any point in time​</td>
+          <td>The states are all contained in a single region and thus a exclusive to each other.</td>
+        </tr>
+        <tr>
+          <td>R3: at system start-up, the red light is on​</td>
+          <td>The entry node points to state <i>Red</i> and the entry transition raises the event <i>displayRed</i>.</td>
+        </tr>
+        <tr>
+          <td>R4: cycles through red on, green on, and yellow on​</td>
+          <td>The transitions define this cycle.</td>
+        </tr>
+        <tr>
+          <td>R5: red is on for 60s, green is on for 55s, yellow is on for 5s​</td>
+          <td>Time events are specified on the transitions.</td>
+        </tr>
+      </table>
+    </div>
+    </p>
 
-  <p>Additionally, the traffic light can be switched off completely. This
-    turns the yellow lights into a blinking mode, signaling that the traffic
-    light is indeed switched off and that the street should be crossed in a
-    careful manner.</p>
+  </div>
+
 </body>
 </html>
