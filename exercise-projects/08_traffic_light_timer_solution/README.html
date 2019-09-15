@@ -2,32 +2,52 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Solution Exercise 8: traffic light with timer</title>
+<title>Solution 8: traffic light with timer</title>
 <link href="./resources/doc/css/style.css" rel="stylesheet">
 </head>
-<body class="body-container">
+<body>
 
-  <h1>Solution Exercise 8: traffic light with timer</h1>
+  <div class="jumbotron text-center">
+    <h3>Solution 8</h3>
+    <h2>Taffic light with timer</h2>
+    <p>In this exercise an orthogonal region is used to model a timer. 
+      The result should be comparable to the follwing statechart... </p>
+    <p>
+        <img class="standard-image" alt="The statechart"
+          src="resources/doc/statechart.png" />
+      </p>
+   </div>  
 
-  <p>This example demonstrates how to to generate Javacode from a statechart. The procedure is explained in the documentation, chapter "Java code generator". </p>
+  <div class="body-container__">
 
-  <p>
-    <img class="standard-image" alt="The statechart"
-      src="images/TrafficLightCtrl.png" />
-  </p>
+    
+    <h2>How does the model cover the requirements?</h2>  
+    <div class="table-responsive">
+      <table class="table-hover table-bordered">
+        <tr>
+          <th>requirement</th>
+          <th>modelling approach</th>
+        </tr>
+        <tr>
+          <td>R10: a timer displays the remaining time while the light is red or green</td>
+          <td>The timer is defined in a second region within state <i>on</i>. </td>
+          </tr>
+        <tr>
+          <td>R10a: This timer decreases and displays its value every second.</td>
+          <td>An internal variable for the counter is introduced. Wehn switching e traffic light phase the counter value is set to the 
+            time period of the phase. Additionally the local evemts <i>resetTimer</i>, <i>enableTimer</i>, and <i>disableTimer</i> 
+            are used to synchronize traffic light phase switches with the timer.
+          </td>
+        </tr>
+        <tr>
+          <td>R10b: The colour of the timer reflects the colour of the traffic light.</td>
+          <td>When the timer is enabled it checks the active traffic light phase state using <i>active()</i> function.</td>
+        </tr>   
+      </table>
+    </div>
+    </p>
 
-  <p>In summary, there are two traffic lights: one for the traffic on the street, and
-    one for pedestrians who want to cross the street. They can push a button to
-    request their traffic light to turn green, which activates a blinking
-    wait-light first. The street's traffic light then goes through the standard
-    procedure, turning on the yellow light, followed by the red light, allowing
-    the pedestrians to cross safely. After some time, the pedestrians' traffic
-    light turns red again, and the cars are allowed to pass until the next
-    request is made by a pedestrian.</p>
+  </div>
 
-  <p>Additionally, the traffic light can be switched off completely. This
-    turns the yellow lights into a blinking mode, signaling that the traffic
-    light is indeed switched off and that the street should be crossed in a
-    careful manner.</p>
 </body>
 </html>

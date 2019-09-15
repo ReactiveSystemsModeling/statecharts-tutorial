@@ -2,32 +2,49 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Solution Exercise 8: traffic light with timer</title>
+<title>Exercise 8: traffic light with timer</title>
 <link href="./resources/doc/css/style.css" rel="stylesheet">
 </head>
-<body class="body-container">
+<body>
 
-  <h1>Solution Exercise 8: traffic light with timer</h1>
+  <div class="jumbotron text-center">
+    <h3>Exercise 8</h3>
+    <h2>Traffic light with timer</h2>
+    <p>In this exercise a timer must be modeled. It introduces using orthogonal regions. </p>
+    <p>
+        <img class="standard-image" alt="The statechart" style="max-height: 50%; max-width: auto;"
+          src="resources/doc/statechart.png" />
+      </p>
+   </div>  
 
-  <p>This example demonstrates how to to generate Javacode from a statechart. The procedure is explained in the documentation, chapter "Java code generator". </p>
+  <div class="body-container">
 
-  <p>
-    <img class="standard-image" alt="The statechart"
-      src="images/TrafficLightCtrl.png" />
-  </p>
+    <p></p>
 
-  <p>In summary, there are two traffic lights: one for the traffic on the street, and
-    one for pedestrians who want to cross the street. They can push a button to
-    request their traffic light to turn green, which activates a blinking
-    wait-light first. The street's traffic light then goes through the standard
-    procedure, turning on the yellow light, followed by the red light, allowing
-    the pedestrians to cross safely. After some time, the pedestrians' traffic
-    light turns red again, and the cars are allowed to pass until the next
-    request is made by a pedestrian.</p>
+    <h1>Requirements</h1>
+    <p>
+    </p>
+    <ul>
+      <li>R10: A timer displays the remaining time while the light is red or green</li>
+      <li>R10a: This timer decreases and displays its value every second.</li>
+      <li>R10b: The colour of the timer reflects the colour of the traffic light.</li>
+    </ul>
 
-  <p>Additionally, the traffic light can be switched off completely. This
-    turns the yellow lights into a blinking mode, signaling that the traffic
-    light is indeed switched off and that the street should be crossed in a
-    careful manner.</p>
+    <h1>Model the feature</h1>
+      <p>
+        The interface is already prepared. You schould add all required variables and local events in the <i>internal:</i> declaration scope.
+        Follow the same procedure as in previous exercises.
+        <ol>
+          <li>Take a look at <i>specification/TimerSpecification.sctunit</i>. These test cases are already complete and checks all the requirements defined above. 
+            It will fail on the first run.</li>
+          <li>Extend the stetchart. All required declarations are already in place.</li>
+          <li>While you are extending the statechart run the test suite <i>TestTrafficLight.sctunit</i>. It contains the new interrupt specification and 
+            all previously defined tests. Running this suit makes sure that no regressions occur.</li>
+          <li>Continue from 2. until all tests are green. You should also have no uncovered model elements.</li>
+        </ol>
+      </p>
+
+  </div>
+
 </body>
 </html>
