@@ -147,6 +147,7 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		$NullState$
 	};
 	
+	private State[] historyVector = new State[1];
 	private final State[] stateVector = new State[1];
 	
 	private int nextStateIndex;
@@ -167,6 +168,9 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		}
 		for (int i = 0; i < 1; i++) {
 			stateVector[i] = State.$NullState$;
+		}
+		for (int i = 0; i < 1; i++) {
+			historyVector[i] = State.$NullState$;
 		}
 		clearEvents();
 		clearOutEvents();
@@ -412,6 +416,8 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		entryAction_main_normal_normal_Red();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_normal_normal_Red;
+		
+		historyVector[0] = stateVector[0];
 	}
 	
 	/* 'default' enter sequence for state Yellow */
@@ -419,6 +425,8 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		entryAction_main_normal_normal_Yellow();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_normal_normal_Yellow;
+		
+		historyVector[0] = stateVector[0];
 	}
 	
 	/* 'default' enter sequence for state Green */
@@ -426,6 +434,8 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		entryAction_main_normal_normal_Green();
 		nextStateIndex = 0;
 		stateVector[0] = State.main_normal_normal_Green;
+		
+		historyVector[0] = stateVector[0];
 	}
 	
 	/* 'default' enter sequence for state interrupted */
@@ -455,6 +465,23 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 	/* 'default' enter sequence for region normal */
 	private void enterSequence_main_normal_normal_default() {
 		react_main_normal_normal__entry_Default();
+	}
+	
+	/* shallow enterSequence with history in child normal */
+	private void shallowEnterSequence_main_normal_normal() {
+		switch (historyVector[0]) {
+		case main_normal_normal_Red:
+			enterSequence_main_normal_normal_Red_default();
+			break;
+		case main_normal_normal_Yellow:
+			enterSequence_main_normal_normal_Yellow_default();
+			break;
+		case main_normal_normal_Green:
+			enterSequence_main_normal_normal_Green_default();
+			break;
+		default:
+			break;
+		}
 	}
 	
 	/* 'default' enter sequence for region blinking */
@@ -576,6 +603,16 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		enterSequence_main_normal_normal_Red_default();
 	}
 	
+	/* Default react sequence for shallow history entry hist */
+	private void react_main_normal_normal_hist() {
+		/* Enter the region with shallow history */
+		if (historyVector[0] != State.$NullState$) {
+			shallowEnterSequence_main_normal_normal();
+		} else {
+			enterSequence_main_normal_normal_Red_default();
+		}
+	}
+	
 	/* Default react sequence for initial entry  */
 	private void react_main_interrupted_blinking__entry_Default() {
 		enterSequence_main_interrupted_blinking_Yellow_default();
@@ -663,7 +700,7 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		if (try_transition) {
 			if (sCInterface.police_interrupt) {
 				exitSequence_main_interrupted();
-				enterSequence_main_normal_default();
+				react_main_normal_normal_hist();
 				react();
 			} else {
 				did_transition = false;
