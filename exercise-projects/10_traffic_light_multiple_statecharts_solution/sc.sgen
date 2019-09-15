@@ -1,0 +1,38 @@
+GeneratorModel for yakindu::java {
+
+	statechart TrafficLightCtrl {
+
+		feature Outlet {
+			targetProject = "10_traffic_light_multiple_statecharts_solution"
+			targetFolder = "src"
+		}
+		feature Naming {
+			basePackage =  "traffic.light" 
+		}
+		feature GeneralFeatures {
+			RuntimeService = true
+			TimerService = true
+			InterfaceObserverSupport = true
+			synchronized = true
+		}
+		
+		}
+	statechart Crossing {
+
+		feature Outlet {
+			targetProject = "10_traffic_light_multiple_statecharts_solution"
+			targetFolder = "src"
+		}
+		feature Naming {
+			basePackage =  "traffic.light" 
+		}
+		feature GeneralFeatures {
+			RuntimeService = true
+			TimerService = true
+			InterfaceObserverSupport = true
+			synchronized = true
+		}
+		
+		
+	}
+}
