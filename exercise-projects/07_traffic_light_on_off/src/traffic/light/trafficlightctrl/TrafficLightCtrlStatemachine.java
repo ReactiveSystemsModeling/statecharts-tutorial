@@ -146,15 +146,13 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 	private boolean initialized = false;
 	
 	public enum State {
-		main_main,
-		main_main_trafficlight_interrupted,
-		main_main_trafficlight_interrupted_blinking_Black,
-		main_main_trafficlight_interrupted_blinking_Yellow,
-		main_main_trafficlight_normal,
-		main_main_trafficlight_normal_normal_Red,
-		main_main_trafficlight_normal_normal_Yellow,
-		main_main_trafficlight_normal_normal_Green,
-		main_off,
+		main_normal,
+		main_normal_normal_Red,
+		main_normal_normal_Yellow,
+		main_normal_normal_Green,
+		main_interrupted,
+		main_interrupted_blinking_Black,
+		main_interrupted_blinking_Yellow,
 		$NullState$
 	};
 	
@@ -211,23 +209,20 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		clearOutEvents();
 		for (nextStateIndex = 0; nextStateIndex < stateVector.length; nextStateIndex++) {
 			switch (stateVector[nextStateIndex]) {
-			case main_main_trafficlight_interrupted_blinking_Black:
-				main_main_trafficlight_interrupted_blinking_Black_react(true);
+			case main_normal_normal_Red:
+				main_normal_normal_Red_react(true);
 				break;
-			case main_main_trafficlight_interrupted_blinking_Yellow:
-				main_main_trafficlight_interrupted_blinking_Yellow_react(true);
+			case main_normal_normal_Yellow:
+				main_normal_normal_Yellow_react(true);
 				break;
-			case main_main_trafficlight_normal_normal_Red:
-				main_main_trafficlight_normal_normal_Red_react(true);
+			case main_normal_normal_Green:
+				main_normal_normal_Green_react(true);
 				break;
-			case main_main_trafficlight_normal_normal_Yellow:
-				main_main_trafficlight_normal_normal_Yellow_react(true);
+			case main_interrupted_blinking_Black:
+				main_interrupted_blinking_Black_react(true);
 				break;
-			case main_main_trafficlight_normal_normal_Green:
-				main_main_trafficlight_normal_normal_Green_react(true);
-				break;
-			case main_off:
-				main_off_react(true);
+			case main_interrupted_blinking_Yellow:
+				main_interrupted_blinking_Yellow_react(true);
 				break;
 			default:
 				// $NullState$
@@ -278,27 +273,22 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 	public synchronized boolean isStateActive(State state) {
 	
 		switch (state) {
-		case main_main:
+		case main_normal:
 			return stateVector[0].ordinal() >= State.
-					main_main.ordinal()&& stateVector[0].ordinal() <= State.main_main_trafficlight_normal_normal_Green.ordinal();
-		case main_main_trafficlight_interrupted:
+					main_normal.ordinal()&& stateVector[0].ordinal() <= State.main_normal_normal_Green.ordinal();
+		case main_normal_normal_Red:
+			return stateVector[0] == State.main_normal_normal_Red;
+		case main_normal_normal_Yellow:
+			return stateVector[0] == State.main_normal_normal_Yellow;
+		case main_normal_normal_Green:
+			return stateVector[0] == State.main_normal_normal_Green;
+		case main_interrupted:
 			return stateVector[0].ordinal() >= State.
-					main_main_trafficlight_interrupted.ordinal()&& stateVector[0].ordinal() <= State.main_main_trafficlight_interrupted_blinking_Yellow.ordinal();
-		case main_main_trafficlight_interrupted_blinking_Black:
-			return stateVector[0] == State.main_main_trafficlight_interrupted_blinking_Black;
-		case main_main_trafficlight_interrupted_blinking_Yellow:
-			return stateVector[0] == State.main_main_trafficlight_interrupted_blinking_Yellow;
-		case main_main_trafficlight_normal:
-			return stateVector[0].ordinal() >= State.
-					main_main_trafficlight_normal.ordinal()&& stateVector[0].ordinal() <= State.main_main_trafficlight_normal_normal_Green.ordinal();
-		case main_main_trafficlight_normal_normal_Red:
-			return stateVector[0] == State.main_main_trafficlight_normal_normal_Red;
-		case main_main_trafficlight_normal_normal_Yellow:
-			return stateVector[0] == State.main_main_trafficlight_normal_normal_Yellow;
-		case main_main_trafficlight_normal_normal_Green:
-			return stateVector[0] == State.main_main_trafficlight_normal_normal_Green;
-		case main_off:
-			return stateVector[0] == State.main_off;
+					main_interrupted.ordinal()&& stateVector[0].ordinal() <= State.main_interrupted_blinking_Yellow.ordinal();
+		case main_interrupted_blinking_Black:
+			return stateVector[0] == State.main_interrupted_blinking_Black;
+		case main_interrupted_blinking_Yellow:
+			return stateVector[0] == State.main_interrupted_blinking_Yellow;
 		default:
 			return false;
 		}
@@ -369,131 +359,115 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		sCInterface.setYellowPeriod(value);
 	}
 	
-	/* Entry action for state 'Black'. */
-	private void entryAction_main_main_trafficlight_interrupted_blinking_Black() {
-		timer.setTimer(this, 0, 500, false);
-		
-		sCITrafficLight.raiseDisplayNone();
-	}
-	
-	/* Entry action for state 'Yellow'. */
-	private void entryAction_main_main_trafficlight_interrupted_blinking_Yellow() {
-		timer.setTimer(this, 1, 500, false);
-		
-		sCITrafficLight.raiseDisplayYellow();
-	}
-	
 	/* Entry action for state 'Red'. */
-	private void entryAction_main_main_trafficlight_normal_normal_Red() {
-		timer.setTimer(this, 2, (sCInterface.getRedPeriod() * 1000), false);
+	private void entryAction_main_normal_normal_Red() {
+		timer.setTimer(this, 0, (sCInterface.getRedPeriod() * 1000), false);
 		
 		sCITrafficLight.raiseDisplayRed();
 	}
 	
 	/* Entry action for state 'Yellow'. */
-	private void entryAction_main_main_trafficlight_normal_normal_Yellow() {
-		timer.setTimer(this, 3, (sCInterface.getYellowPeriod() * 1000), false);
+	private void entryAction_main_normal_normal_Yellow() {
+		timer.setTimer(this, 1, (sCInterface.getYellowPeriod() * 1000), false);
 		
 		sCITrafficLight.raiseDisplayYellow();
 	}
 	
 	/* Entry action for state 'Green'. */
-	private void entryAction_main_main_trafficlight_normal_normal_Green() {
-		timer.setTimer(this, 4, (sCInterface.getGreenPeriod() * 1000), false);
+	private void entryAction_main_normal_normal_Green() {
+		timer.setTimer(this, 2, (sCInterface.getGreenPeriod() * 1000), false);
 		
 		sCITrafficLight.raiseDisplayGreen();
 	}
 	
-	/* Exit action for state 'main'. */
-	private void exitAction_main_main() {
+	/* Entry action for state 'Black'. */
+	private void entryAction_main_interrupted_blinking_Black() {
+		timer.setTimer(this, 3, 500, false);
+		
 		sCITrafficLight.raiseDisplayNone();
 	}
 	
-	/* Exit action for state 'Black'. */
-	private void exitAction_main_main_trafficlight_interrupted_blinking_Black() {
+	/* Entry action for state 'Yellow'. */
+	private void entryAction_main_interrupted_blinking_Yellow() {
+		timer.setTimer(this, 4, 500, false);
+		
+		sCITrafficLight.raiseDisplayYellow();
+	}
+	
+	/* Exit action for state 'Red'. */
+	private void exitAction_main_normal_normal_Red() {
 		timer.unsetTimer(this, 0);
 	}
 	
 	/* Exit action for state 'Yellow'. */
-	private void exitAction_main_main_trafficlight_interrupted_blinking_Yellow() {
+	private void exitAction_main_normal_normal_Yellow() {
 		timer.unsetTimer(this, 1);
 	}
 	
-	/* Exit action for state 'Red'. */
-	private void exitAction_main_main_trafficlight_normal_normal_Red() {
+	/* Exit action for state 'Green'. */
+	private void exitAction_main_normal_normal_Green() {
 		timer.unsetTimer(this, 2);
 	}
 	
-	/* Exit action for state 'Yellow'. */
-	private void exitAction_main_main_trafficlight_normal_normal_Yellow() {
+	/* Exit action for state 'Black'. */
+	private void exitAction_main_interrupted_blinking_Black() {
 		timer.unsetTimer(this, 3);
 	}
 	
-	/* Exit action for state 'Green'. */
-	private void exitAction_main_main_trafficlight_normal_normal_Green() {
+	/* Exit action for state 'Yellow'. */
+	private void exitAction_main_interrupted_blinking_Yellow() {
 		timer.unsetTimer(this, 4);
 	}
 	
-	/* 'default' enter sequence for state main */
-	private void enterSequence_main_main_default() {
-		enterSequence_main_main_trafficlight_default();
-	}
-	
-	/* 'default' enter sequence for state interrupted */
-	private void enterSequence_main_main_trafficlight_interrupted_default() {
-		enterSequence_main_main_trafficlight_interrupted_blinking_default();
-	}
-	
-	/* 'default' enter sequence for state Black */
-	private void enterSequence_main_main_trafficlight_interrupted_blinking_Black_default() {
-		entryAction_main_main_trafficlight_interrupted_blinking_Black();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_main_trafficlight_interrupted_blinking_Black;
-	}
-	
-	/* 'default' enter sequence for state Yellow */
-	private void enterSequence_main_main_trafficlight_interrupted_blinking_Yellow_default() {
-		entryAction_main_main_trafficlight_interrupted_blinking_Yellow();
-		nextStateIndex = 0;
-		stateVector[0] = State.main_main_trafficlight_interrupted_blinking_Yellow;
-	}
-	
 	/* 'default' enter sequence for state normal */
-	private void enterSequence_main_main_trafficlight_normal_default() {
-		enterSequence_main_main_trafficlight_normal_normal_default();
+	private void enterSequence_main_normal_default() {
+		enterSequence_main_normal_normal_default();
 	}
 	
 	/* 'default' enter sequence for state Red */
-	private void enterSequence_main_main_trafficlight_normal_normal_Red_default() {
-		entryAction_main_main_trafficlight_normal_normal_Red();
+	private void enterSequence_main_normal_normal_Red_default() {
+		entryAction_main_normal_normal_Red();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_main_trafficlight_normal_normal_Red;
+		stateVector[0] = State.main_normal_normal_Red;
 		
 		historyVector[0] = stateVector[0];
 	}
 	
 	/* 'default' enter sequence for state Yellow */
-	private void enterSequence_main_main_trafficlight_normal_normal_Yellow_default() {
-		entryAction_main_main_trafficlight_normal_normal_Yellow();
+	private void enterSequence_main_normal_normal_Yellow_default() {
+		entryAction_main_normal_normal_Yellow();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_main_trafficlight_normal_normal_Yellow;
+		stateVector[0] = State.main_normal_normal_Yellow;
 		
 		historyVector[0] = stateVector[0];
 	}
 	
 	/* 'default' enter sequence for state Green */
-	private void enterSequence_main_main_trafficlight_normal_normal_Green_default() {
-		entryAction_main_main_trafficlight_normal_normal_Green();
+	private void enterSequence_main_normal_normal_Green_default() {
+		entryAction_main_normal_normal_Green();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_main_trafficlight_normal_normal_Green;
+		stateVector[0] = State.main_normal_normal_Green;
 		
 		historyVector[0] = stateVector[0];
 	}
 	
-	/* 'default' enter sequence for state off */
-	private void enterSequence_main_off_default() {
+	/* 'default' enter sequence for state interrupted */
+	private void enterSequence_main_interrupted_default() {
+		enterSequence_main_interrupted_blinking_default();
+	}
+	
+	/* 'default' enter sequence for state Black */
+	private void enterSequence_main_interrupted_blinking_Black_default() {
+		entryAction_main_interrupted_blinking_Black();
 		nextStateIndex = 0;
-		stateVector[0] = State.main_off;
+		stateVector[0] = State.main_interrupted_blinking_Black;
+	}
+	
+	/* 'default' enter sequence for state Yellow */
+	private void enterSequence_main_interrupted_blinking_Yellow_default() {
+		entryAction_main_interrupted_blinking_Yellow();
+		nextStateIndex = 0;
+		stateVector[0] = State.main_interrupted_blinking_Yellow;
 	}
 	
 	/* 'default' enter sequence for region main */
@@ -501,162 +475,100 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		react_main__entry_Default();
 	}
 	
-	/* 'default' enter sequence for region trafficlight */
-	private void enterSequence_main_main_trafficlight_default() {
-		react_main_main_trafficlight__entry_Default();
-	}
-	
-	/* 'default' enter sequence for region blinking */
-	private void enterSequence_main_main_trafficlight_interrupted_blinking_default() {
-		react_main_main_trafficlight_interrupted_blinking__entry_Default();
-	}
-	
 	/* 'default' enter sequence for region normal */
-	private void enterSequence_main_main_trafficlight_normal_normal_default() {
-		react_main_main_trafficlight_normal_normal__entry_Default();
+	private void enterSequence_main_normal_normal_default() {
+		react_main_normal_normal__entry_Default();
 	}
 	
 	/* deep enterSequence with history in child normal */
-	private void deepEnterSequence_main_main_trafficlight_normal_normal() {
+	private void deepEnterSequence_main_normal_normal() {
 		switch (historyVector[0]) {
-		case main_main_trafficlight_normal_normal_Red:
-			enterSequence_main_main_trafficlight_normal_normal_Red_default();
+		case main_normal_normal_Red:
+			enterSequence_main_normal_normal_Red_default();
 			break;
-		case main_main_trafficlight_normal_normal_Yellow:
-			enterSequence_main_main_trafficlight_normal_normal_Yellow_default();
+		case main_normal_normal_Yellow:
+			enterSequence_main_normal_normal_Yellow_default();
 			break;
-		case main_main_trafficlight_normal_normal_Green:
-			enterSequence_main_main_trafficlight_normal_normal_Green_default();
+		case main_normal_normal_Green:
+			enterSequence_main_normal_normal_Green_default();
 			break;
 		default:
 			break;
 		}
 	}
 	
-	/* Default exit sequence for state main */
-	private void exitSequence_main_main() {
-		exitSequence_main_main_trafficlight();
-		exitAction_main_main();
-	}
-	
-	/* Default exit sequence for state interrupted */
-	private void exitSequence_main_main_trafficlight_interrupted() {
-		exitSequence_main_main_trafficlight_interrupted_blinking();
-	}
-	
-	/* Default exit sequence for state Black */
-	private void exitSequence_main_main_trafficlight_interrupted_blinking_Black() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_main_trafficlight_interrupted_blinking_Black();
-	}
-	
-	/* Default exit sequence for state Yellow */
-	private void exitSequence_main_main_trafficlight_interrupted_blinking_Yellow() {
-		nextStateIndex = 0;
-		stateVector[0] = State.$NullState$;
-		
-		exitAction_main_main_trafficlight_interrupted_blinking_Yellow();
+	/* 'default' enter sequence for region blinking */
+	private void enterSequence_main_interrupted_blinking_default() {
+		react_main_interrupted_blinking__entry_Default();
 	}
 	
 	/* Default exit sequence for state normal */
-	private void exitSequence_main_main_trafficlight_normal() {
-		exitSequence_main_main_trafficlight_normal_normal();
+	private void exitSequence_main_normal() {
+		exitSequence_main_normal_normal();
 	}
 	
 	/* Default exit sequence for state Red */
-	private void exitSequence_main_main_trafficlight_normal_normal_Red() {
+	private void exitSequence_main_normal_normal_Red() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_main_trafficlight_normal_normal_Red();
+		exitAction_main_normal_normal_Red();
 	}
 	
 	/* Default exit sequence for state Yellow */
-	private void exitSequence_main_main_trafficlight_normal_normal_Yellow() {
+	private void exitSequence_main_normal_normal_Yellow() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_main_trafficlight_normal_normal_Yellow();
+		exitAction_main_normal_normal_Yellow();
 	}
 	
 	/* Default exit sequence for state Green */
-	private void exitSequence_main_main_trafficlight_normal_normal_Green() {
+	private void exitSequence_main_normal_normal_Green() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
 		
-		exitAction_main_main_trafficlight_normal_normal_Green();
+		exitAction_main_normal_normal_Green();
 	}
 	
-	/* Default exit sequence for state off */
-	private void exitSequence_main_off() {
+	/* Default exit sequence for state interrupted */
+	private void exitSequence_main_interrupted() {
+		exitSequence_main_interrupted_blinking();
+	}
+	
+	/* Default exit sequence for state Black */
+	private void exitSequence_main_interrupted_blinking_Black() {
 		nextStateIndex = 0;
 		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_interrupted_blinking_Black();
+	}
+	
+	/* Default exit sequence for state Yellow */
+	private void exitSequence_main_interrupted_blinking_Yellow() {
+		nextStateIndex = 0;
+		stateVector[0] = State.$NullState$;
+		
+		exitAction_main_interrupted_blinking_Yellow();
 	}
 	
 	/* Default exit sequence for region main */
 	private void exitSequence_main() {
 		switch (stateVector[0]) {
-		case main_main_trafficlight_interrupted_blinking_Black:
-			exitSequence_main_main_trafficlight_interrupted_blinking_Black();
-			exitAction_main_main();
+		case main_normal_normal_Red:
+			exitSequence_main_normal_normal_Red();
 			break;
-		case main_main_trafficlight_interrupted_blinking_Yellow:
-			exitSequence_main_main_trafficlight_interrupted_blinking_Yellow();
-			exitAction_main_main();
+		case main_normal_normal_Yellow:
+			exitSequence_main_normal_normal_Yellow();
 			break;
-		case main_main_trafficlight_normal_normal_Red:
-			exitSequence_main_main_trafficlight_normal_normal_Red();
-			exitAction_main_main();
+		case main_normal_normal_Green:
+			exitSequence_main_normal_normal_Green();
 			break;
-		case main_main_trafficlight_normal_normal_Yellow:
-			exitSequence_main_main_trafficlight_normal_normal_Yellow();
-			exitAction_main_main();
+		case main_interrupted_blinking_Black:
+			exitSequence_main_interrupted_blinking_Black();
 			break;
-		case main_main_trafficlight_normal_normal_Green:
-			exitSequence_main_main_trafficlight_normal_normal_Green();
-			exitAction_main_main();
-			break;
-		case main_off:
-			exitSequence_main_off();
-			break;
-		default:
-			break;
-		}
-	}
-	
-	/* Default exit sequence for region trafficlight */
-	private void exitSequence_main_main_trafficlight() {
-		switch (stateVector[0]) {
-		case main_main_trafficlight_interrupted_blinking_Black:
-			exitSequence_main_main_trafficlight_interrupted_blinking_Black();
-			break;
-		case main_main_trafficlight_interrupted_blinking_Yellow:
-			exitSequence_main_main_trafficlight_interrupted_blinking_Yellow();
-			break;
-		case main_main_trafficlight_normal_normal_Red:
-			exitSequence_main_main_trafficlight_normal_normal_Red();
-			break;
-		case main_main_trafficlight_normal_normal_Yellow:
-			exitSequence_main_main_trafficlight_normal_normal_Yellow();
-			break;
-		case main_main_trafficlight_normal_normal_Green:
-			exitSequence_main_main_trafficlight_normal_normal_Green();
-			break;
-		default:
-			break;
-		}
-	}
-	
-	/* Default exit sequence for region blinking */
-	private void exitSequence_main_main_trafficlight_interrupted_blinking() {
-		switch (stateVector[0]) {
-		case main_main_trafficlight_interrupted_blinking_Black:
-			exitSequence_main_main_trafficlight_interrupted_blinking_Black();
-			break;
-		case main_main_trafficlight_interrupted_blinking_Yellow:
-			exitSequence_main_main_trafficlight_interrupted_blinking_Yellow();
+		case main_interrupted_blinking_Yellow:
+			exitSequence_main_interrupted_blinking_Yellow();
 			break;
 		default:
 			break;
@@ -664,16 +576,30 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 	}
 	
 	/* Default exit sequence for region normal */
-	private void exitSequence_main_main_trafficlight_normal_normal() {
+	private void exitSequence_main_normal_normal() {
 		switch (stateVector[0]) {
-		case main_main_trafficlight_normal_normal_Red:
-			exitSequence_main_main_trafficlight_normal_normal_Red();
+		case main_normal_normal_Red:
+			exitSequence_main_normal_normal_Red();
 			break;
-		case main_main_trafficlight_normal_normal_Yellow:
-			exitSequence_main_main_trafficlight_normal_normal_Yellow();
+		case main_normal_normal_Yellow:
+			exitSequence_main_normal_normal_Yellow();
 			break;
-		case main_main_trafficlight_normal_normal_Green:
-			exitSequence_main_main_trafficlight_normal_normal_Green();
+		case main_normal_normal_Green:
+			exitSequence_main_normal_normal_Green();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	/* Default exit sequence for region blinking */
+	private void exitSequence_main_interrupted_blinking() {
+		switch (stateVector[0]) {
+		case main_interrupted_blinking_Black:
+			exitSequence_main_interrupted_blinking_Black();
+			break;
+		case main_interrupted_blinking_Yellow:
+			exitSequence_main_interrupted_blinking_Yellow();
 			break;
 		default:
 			break;
@@ -681,46 +607,41 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 	}
 	
 	/* Default react sequence for initial entry  */
-	private void react_main_main_trafficlight_interrupted_blinking__entry_Default() {
-		enterSequence_main_main_trafficlight_interrupted_blinking_Yellow_default();
+	private void react_main__entry_Default() {
+		enterSequence_main_normal_default();
 	}
 	
 	/* Default react sequence for initial entry  */
-	private void react_main_main_trafficlight_normal_normal__entry_Default() {
-		enterSequence_main_main_trafficlight_normal_normal_Red_default();
+	private void react_main_normal_normal__entry_Default() {
+		enterSequence_main_normal_normal_Red_default();
 	}
 	
 	/* Default react sequence for deep history entry hist */
-	private void react_main_main_trafficlight_normal_normal_hist() {
+	private void react_main_normal_normal_hist() {
 		/* Enter the region with deep history */
 		if (historyVector[0] != State.$NullState$) {
-			deepEnterSequence_main_main_trafficlight_normal_normal();
+			deepEnterSequence_main_normal_normal();
 		} else {
-			enterSequence_main_main_trafficlight_normal_normal_Red_default();
+			enterSequence_main_normal_normal_Red_default();
 		}
 	}
 	
 	/* Default react sequence for initial entry  */
-	private void react_main_main_trafficlight__entry_Default() {
-		enterSequence_main_main_trafficlight_normal_default();
-	}
-	
-	/* Default react sequence for initial entry  */
-	private void react_main__entry_Default() {
-		enterSequence_main_off_default();
+	private void react_main_interrupted_blinking__entry_Default() {
+		enterSequence_main_interrupted_blinking_Yellow_default();
 	}
 	
 	private boolean react() {
 		return false;
 	}
 	
-	private boolean main_main_react(boolean try_transition) {
+	private boolean main_normal_react(boolean try_transition) {
 		boolean did_transition = try_transition;
 		
 		if (try_transition) {
-			if (sCInterface.toggle) {
-				exitSequence_main_main();
-				enterSequence_main_off_default();
+			if (sCInterface.police_interrupt) {
+				exitSequence_main_normal();
+				enterSequence_main_interrupted_default();
 				react();
 			} else {
 				did_transition = false;
@@ -732,139 +653,67 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		return did_transition;
 	}
 	
-	private boolean main_main_trafficlight_interrupted_react(boolean try_transition) {
-		boolean did_transition = try_transition;
-		
-		if (try_transition) {
-			if (sCInterface.police_interrupt) {
-				exitSequence_main_main_trafficlight_interrupted();
-				react_main_main_trafficlight_normal_normal_hist();
-				main_main_react(false);
-			} else {
-				did_transition = false;
-			}
-		}
-		if (did_transition==false) {
-			did_transition = main_main_react(try_transition);
-		}
-		return did_transition;
-	}
-	
-	private boolean main_main_trafficlight_interrupted_blinking_Black_react(boolean try_transition) {
+	private boolean main_normal_normal_Red_react(boolean try_transition) {
 		boolean did_transition = try_transition;
 		
 		if (try_transition) {
 			if (timeEvents[0]) {
-				exitSequence_main_main_trafficlight_interrupted_blinking_Black();
-				enterSequence_main_main_trafficlight_interrupted_blinking_Yellow_default();
-				main_main_trafficlight_interrupted_react(false);
+				exitSequence_main_normal_normal_Red();
+				enterSequence_main_normal_normal_Green_default();
+				main_normal_react(false);
 			} else {
 				did_transition = false;
 			}
 		}
 		if (did_transition==false) {
-			did_transition = main_main_trafficlight_interrupted_react(try_transition);
+			did_transition = main_normal_react(try_transition);
 		}
 		return did_transition;
 	}
 	
-	private boolean main_main_trafficlight_interrupted_blinking_Yellow_react(boolean try_transition) {
+	private boolean main_normal_normal_Yellow_react(boolean try_transition) {
 		boolean did_transition = try_transition;
 		
 		if (try_transition) {
 			if (timeEvents[1]) {
-				exitSequence_main_main_trafficlight_interrupted_blinking_Yellow();
-				enterSequence_main_main_trafficlight_interrupted_blinking_Black_default();
-				main_main_trafficlight_interrupted_react(false);
+				exitSequence_main_normal_normal_Yellow();
+				enterSequence_main_normal_normal_Red_default();
+				main_normal_react(false);
 			} else {
 				did_transition = false;
 			}
 		}
 		if (did_transition==false) {
-			did_transition = main_main_trafficlight_interrupted_react(try_transition);
+			did_transition = main_normal_react(try_transition);
 		}
 		return did_transition;
 	}
 	
-	private boolean main_main_trafficlight_normal_react(boolean try_transition) {
-		boolean did_transition = try_transition;
-		
-		if (try_transition) {
-			if (sCInterface.police_interrupt) {
-				exitSequence_main_main_trafficlight_normal();
-				enterSequence_main_main_trafficlight_interrupted_default();
-				main_main_react(false);
-			} else {
-				did_transition = false;
-			}
-		}
-		if (did_transition==false) {
-			did_transition = main_main_react(try_transition);
-		}
-		return did_transition;
-	}
-	
-	private boolean main_main_trafficlight_normal_normal_Red_react(boolean try_transition) {
+	private boolean main_normal_normal_Green_react(boolean try_transition) {
 		boolean did_transition = try_transition;
 		
 		if (try_transition) {
 			if (timeEvents[2]) {
-				exitSequence_main_main_trafficlight_normal_normal_Red();
-				enterSequence_main_main_trafficlight_normal_normal_Green_default();
-				main_main_trafficlight_normal_react(false);
+				exitSequence_main_normal_normal_Green();
+				enterSequence_main_normal_normal_Yellow_default();
+				main_normal_react(false);
 			} else {
 				did_transition = false;
 			}
 		}
 		if (did_transition==false) {
-			did_transition = main_main_trafficlight_normal_react(try_transition);
+			did_transition = main_normal_react(try_transition);
 		}
 		return did_transition;
 	}
 	
-	private boolean main_main_trafficlight_normal_normal_Yellow_react(boolean try_transition) {
+	private boolean main_interrupted_react(boolean try_transition) {
 		boolean did_transition = try_transition;
 		
 		if (try_transition) {
-			if (timeEvents[3]) {
-				exitSequence_main_main_trafficlight_normal_normal_Yellow();
-				enterSequence_main_main_trafficlight_normal_normal_Red_default();
-				main_main_trafficlight_normal_react(false);
-			} else {
-				did_transition = false;
-			}
-		}
-		if (did_transition==false) {
-			did_transition = main_main_trafficlight_normal_react(try_transition);
-		}
-		return did_transition;
-	}
-	
-	private boolean main_main_trafficlight_normal_normal_Green_react(boolean try_transition) {
-		boolean did_transition = try_transition;
-		
-		if (try_transition) {
-			if (timeEvents[4]) {
-				exitSequence_main_main_trafficlight_normal_normal_Green();
-				enterSequence_main_main_trafficlight_normal_normal_Yellow_default();
-				main_main_trafficlight_normal_react(false);
-			} else {
-				did_transition = false;
-			}
-		}
-		if (did_transition==false) {
-			did_transition = main_main_trafficlight_normal_react(try_transition);
-		}
-		return did_transition;
-	}
-	
-	private boolean main_off_react(boolean try_transition) {
-		boolean did_transition = try_transition;
-		
-		if (try_transition) {
-			if (sCInterface.toggle) {
-				exitSequence_main_off();
-				enterSequence_main_main_default();
+			if (sCInterface.police_interrupt) {
+				exitSequence_main_interrupted();
+				react_main_normal_normal_hist();
 				react();
 			} else {
 				did_transition = false;
@@ -872,6 +721,42 @@ public class TrafficLightCtrlStatemachine implements ITrafficLightCtrlStatemachi
 		}
 		if (did_transition==false) {
 			did_transition = react();
+		}
+		return did_transition;
+	}
+	
+	private boolean main_interrupted_blinking_Black_react(boolean try_transition) {
+		boolean did_transition = try_transition;
+		
+		if (try_transition) {
+			if (timeEvents[3]) {
+				exitSequence_main_interrupted_blinking_Black();
+				enterSequence_main_interrupted_blinking_Yellow_default();
+				main_interrupted_react(false);
+			} else {
+				did_transition = false;
+			}
+		}
+		if (did_transition==false) {
+			did_transition = main_interrupted_react(try_transition);
+		}
+		return did_transition;
+	}
+	
+	private boolean main_interrupted_blinking_Yellow_react(boolean try_transition) {
+		boolean did_transition = try_transition;
+		
+		if (try_transition) {
+			if (timeEvents[4]) {
+				exitSequence_main_interrupted_blinking_Yellow();
+				enterSequence_main_interrupted_blinking_Black_default();
+				main_interrupted_react(false);
+			} else {
+				did_transition = false;
+			}
+		}
+		if (did_transition==false) {
+			did_transition = main_interrupted_react(try_transition);
 		}
 		return did_transition;
 	}
