@@ -29,18 +29,18 @@
           <th>modelling approach</th>
         </tr>
         <tr>
-          <td>R10: a timer displays the remaining time while the light is red or green</td>
+          <td>R10a: a timer displays the remaining time while the light is red or green</td>
           <td>The timer is defined in a second region within state <i>on</i>. </td>
           </tr>
         <tr>
-          <td>R10a: This timer decreases and displays its value every second.</td>
+          <td>R10b: This timer decreases and displays its value every second.</td>
           <td>An internal variable for the counter is introduced. Wehn switching e traffic light phase the counter value is set to the 
             time period of the phase. Additionally the local evemts <i>resetTimer</i>, <i>enableTimer</i>, and <i>disableTimer</i> 
             are used to synchronize traffic light phase switches with the timer.
           </td>
         </tr>
         <tr>
-          <td>R10b: The colour of the timer reflects the colour of the traffic light.</td>
+          <td>R10c: The colour of the timer reflects the colour of the traffic light.</td>
           <td>When the timer is enabled it checks the active traffic light phase state using <i>active()</i> function.</td>
         </tr>   
       </table>

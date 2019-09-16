@@ -28,20 +28,20 @@
           <th>modelling approach</th>
         </tr>
         <tr>
-          <td>R9:The traffic light can be switched on and off</td>
+          <td>R9a:The traffic light can be switched on and off</td>
           <td>An new incoming event <i>toggle</i> triggers a ransition between two new states <i>on</i> and <i>off</i>. </td>
           </tr>
         <tr>
-          <td>R9a: The traffic light is initially off.</td>
+          <td>R9b: The traffic light is initially off.</td>
           <td>The initial state is <i>off</i>.</td>
         </tr>
         <tr>
-          <td>R9b: If the traffic light is off no light is on.</td>
+          <td>R9c: If the traffic light is off no light is on.</td>
           <td>When state <i>off</i> is initially activated then no lights are switched on. If the previous state is <i>on</i> 
             then lights are switched while leaving state <i>on</i>.</td>
         </tr>
         <tr>
-          <td>R9c: After switching off and on again the traffic light must switch on the previously activated light.</td>
+          <td>R9d: After switching off and on again the traffic light must switch on the previously activated light.</td>
           <td>State <i>normal</i> is entered using a deep history. This restores all states.</td>
         </tr>
     

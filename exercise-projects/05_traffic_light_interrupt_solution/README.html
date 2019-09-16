@@ -28,26 +28,26 @@
           <th>modelling approach</th>
         </tr>
         <tr>
-          <td>R6: police can interrupt autonomous operation​.</td>
+          <td>R7a: police can interrupt autonomous operation​.</td>
           <td>An new incoming event <i>police_interrupt</i> triggers a transition to a new state <i>interrupted.</i>
           </td>
         </tr>
         <tr>
-          <td>R6a: Autonomous opreration can be interrupted during any pahse indicated by constant red, yellow and green lights.​</td>
+          <td>R7b: Autonomous opreration can be interrupted during any pahse indicated by constant red, yellow and green lights.​</td>
           <td>The states <i>Red</i>, <i>Green</i>, and <i>Yellow</i> are grouped within a new composite state <i>normal</i>. This state is the 
             source state of the transition to state <i>interrupted</i> and thus also applies to all substates.</td>
         </tr>
         <tr>
-          <td>R7: In interruptetd mode the yellow light blinks with a constant frequency of 1 Hz. (on -> 0.5s, off 0.5s).​</td>
+          <td>R7c: In interruptetd mode the yellow light blinks with a constant frequency of 1 Hz. (on -> 0.5s, off 0.5s).​</td>
           <td>State <i>interrupted</i> is a composite state with two substates <i>Yellow</i> and <i>Black</i>. These 
             switch the yellow light on and off. Timed transitions between these states ensure correct timing for blinking.</td>
         </tr>
         <tr>
-          <td>R8: Police can resume to regular autonomous operation.​</td>
+          <td>R8a: Police can resume to regular autonomous operation.​</td>
           <td>A transition triggered by <i>police_interrupt</i> leads from state <i>interrupted</i> to state <i>normal</i>.</td>
         </tr>
         <tr>
-          <td>R8a: When ​regular operation is resumed the traffic light restarts with red (R) light on.</td>
+          <td>R8b: When ​regular operation is resumed the traffic light restarts with red (R) light on.</td>
           <td>When activating state <i>normal</i> its substate <i>Red</i> is activated by default.</td>
         </tr>
       </table>
